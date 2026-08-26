@@ -1,3 +1,5 @@
+# Non-functional Requirements
+
 - **NFR1 (Availability):** The resume website shall be highly available (S3 + CloudFront gives this near-free).
 - **NFR2 (Cost):** The system shall run within AWS Free Tier for low traffic.
 - **NFR3 (Security):** No public writing access to the database; API should not allow arbitrary writes; least-privilege IAM roles.
