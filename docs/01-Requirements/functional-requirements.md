@@ -1,1 +1,26 @@
+# Functional Requirements
 
+- **FR1:** The system shall display a resume to any visitor via a public URL.
+- **FR2:** The resume shall be written in HTML.
+- **FR3:** The resume shall be styled with CSS.
+- **FR4:** The resume shall be deployed online as an Amazon S3 static website.
+- **FR5:** The S3 static website shall use HTTPS for security.
+- **FR6:** The Amazon CloudFront shall be used.
+- **FR7:** The site shall be reachable via a custom DNS domain name.
+- **FR8:** The custom DNS domain name shall be pointed to the CloudFront distribution.
+- **FR9:** The Amazon Route 53 shall be used as the DNS provider.
+- **FR10:** The resume webpage shall include a visitor counter that displays how many people have accessed the site.
+- **FR11:** The visitor counter shall be implemented in JavaScript.
+- **FR12:** The Amazon's DynamoDB shall be used to retrieve and update the count of the visitor counter.
+- **FR13:** There should be no communication directly with DynamoDB from your Javascript code.
+- **FR14:** The AWS's API Gateway and Lambda services shall be used for communication between the JavaScript code and the DynamoDB.
+- **FR15:** The Lambda function code shall be written in Python.
+- **FR16:** There shall be tests for the implemented python code.
+- **FR17:** The Infrastructure as Code shall be used for configuring the API resources, the DynamoDB table, the API Gateway, and the Lambda function.
+- **FR18:** The infrastructure as code shall be Terraform.
+- **FR19:** Any update in the back-end API or your front-end website shall be done automatically through using CI/CD.
+- **FR20:** A GitHub repository shall be created for the backend code.
+- **FR21:** GitHub Actions shall be set up for code implementation, tests, and deployment of the backend code.
+- **FR22:** A second GitHub repository shall be created for the website code (frontend code).
+- **FR23:** GitHub Actions shall be set up for code implementation, tests, and deployment of the frontend code (for example, when you push new website code, the S3 bucket automatically gets updated).
+- **FR24:** The CloudFront cache shall be invalidated automatically as part of the frontend CI/CD deployment (FR23).
