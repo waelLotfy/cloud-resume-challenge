@@ -24,3 +24,4 @@
 - **FR22:** A second GitHub repository shall be created for the website code (frontend code).
 - **FR23:** GitHub Actions shall be set up for code implementation, tests, and deployment of the frontend code (for example, when you push new website code, the S3 bucket automatically gets updated).
 - **FR24:** The CloudFront cache shall be invalidated automatically as part of the frontend CI/CD deployment (FR23).
+- **FR25:** The system shall emit Lambda execution logs and API Gateway access logs to CloudWatch for troubleshooting and operational visibility.
