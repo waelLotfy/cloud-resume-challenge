@@ -1,0 +1,37 @@
+name: CI
+
+# Placeholder CI pipeline scaffold. Populate steps once backend/frontend
+# implementations exist. Runs on pushes/PRs to validate code quality and
+# run the test suites under tests/.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # TODO: setup-python, install backend/requirements.txt + pytest, run tests/unit and tests/integration
+      # - name: Set up Python
+      #   uses: actions/setup-python@v5
+      #   with:
+      #     python-version: "TBD"
+
+      # TODO: terraform fmt/validate for infrastructure/
+      # - name: Terraform Format Check
+      #   run: terraform fmt -check -recursive infrastructure/
+
+      # TODO: frontend lint (HTML/CSS/JS)
+
+      - name: Placeholder
+        run: echo "CI pipeline not yet implemented — see docs/requirements/ for pending requirements."

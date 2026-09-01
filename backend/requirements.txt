@@ -1,0 +1,3 @@
+# Placeholder Python dependencies for backend Lambda functions.
+# Populate once implementation begins (e.g. boto3 is provided by the
+# Lambda runtime and typically does not need to be listed here).
