@@ -1,9 +1,5 @@
 # Acceptance Criteria
 
-> **Status:** Placeholder. No acceptance criteria have been authored yet.
-> This document defines the format to be used once real functional and
-> non-functional requirements exist.
-
 ## Purpose
 
 Acceptance criteria define the observable, testable conditions that must
@@ -12,27 +8,18 @@ requirement in [`functional-requirements.md`](./functional-requirements.md)
 and [`non-functional-requirements.md`](./non-functional-requirements.md)
 must have at least one linked acceptance criterion here.
 
-## Acceptance Criteria Template
-
-Use the Given/When/Then format, one block per requirement:
-
-```markdown
-### AC-<Requirement ID>-<sequence>: <Short title>
-
-- **Requirement:** <FR<N> | NFR<N>>
-- **Given:** <precondition>
-- **When:** <action/event>
-- **Then:** <expected outcome>
-- **Verification:** <Unit test | Integration test | Acceptance test | Manual inspection>
-- **Test Reference:** <path under tests/ once implemented>
-```
-
 ## Acceptance Criteria Register
 
-| ID | Requirement | Verification | Test Reference |
-|----|-------------|---------------|-----------------|
-| _(none yet)_ | | | |
+### FR4: Resume deployed as S3 static website
+- Visiting the S3 website endpoint URL returns the resume HTML with 200 status
 
----
-_No acceptance criteria have been written yet. This table will be
-populated in lockstep with the requirements documents._
+### FR5: HTTPS enabled
+- Visiting the site over http:// redirects to https://
+- Browser shows valid padlock/certificate
+
+### FR10: Visitor counter displays count
+- Counter shows a number on page load
+- Refreshing the page increments the number by 1
+
+### NFR2: Free tier cost
+- AWS Cost Explorer shows $0 or near-$0 charges after 1 week of testing
