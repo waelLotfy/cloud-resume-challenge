@@ -1,3 +1,4 @@
+```markdown
 # Non-Functional Requirements
 
 This document is the single source of truth for non-functional
@@ -47,7 +48,7 @@ Use the following template for each non-functional requirement:
 - **Description:** The system shall run within AWS Free Tier for low traffic.
 - **Rationale:** Keeps operating costs at (or near) zero during development and low-traffic usage.
 - **Related Architecture:** [Style](../architecture/architecture-overview.md#style)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** AC-NFR2-1
 - **Tracked by:** _TBD_
 - **Verification Method:** Analysis
 
@@ -126,7 +127,7 @@ Use the following template for each non-functional requirement:
 | ID | Title | Category | Acceptance Criteria | Tracked by |
 |----|-------|----------|----------------------|------------|
 | NFR1 | High availability | Availability | _TBD_ | _TBD_ |
-| NFR2 | Free Tier cost constraint | Cost | _TBD_ | _TBD_ |
+| NFR2 | Free Tier cost constraint | Cost | AC-NFR2-1 | _TBD_ |
 | NFR3 | No public write access to data | Security | _TBD_ | _TBD_ |
 | NFR4 | No credentials in source control | Security | _TBD_ | _TBD_ |
 | NFR5 | Infrastructure as Code | Maintainability | _TBD_ | _TBD_ |
@@ -140,3 +141,4 @@ _Sourced from the non-functional requirements defined in the public
 [`cloud-resume-challenge`](https://github.com/waelLotfy/cloud-resume-challenge/blob/main/docs/01-Requirements/non-functional-requirements.md)
 repository. Acceptance criteria and issue tracking links are to be filled
 in as they are authored._
+```
