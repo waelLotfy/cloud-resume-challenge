@@ -1,4 +1,3 @@
-```markdown
 # Non-Functional Requirements
 
 This document is the single source of truth for non-functional
@@ -38,7 +37,7 @@ Use the following template for each non-functional requirement:
 - **Description:** The resume website shall be highly available (S3 + CloudFront gives this near-free).
 - **Rationale:** A resume site should be reachable at all times, since it may be viewed by recruiters at any moment.
 - **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Demonstration
 
@@ -58,7 +57,7 @@ Use the following template for each non-functional requirement:
 - **Description:** No public writing access to the database; API should not allow arbitrary writes; least-privilege IAM roles.
 - **Rationale:** Prevents abuse or tampering of the visitor counter and other application state.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Inspection
 
@@ -68,7 +67,7 @@ Use the following template for each non-functional requirement:
 - **Description:** AWS credentials shall not be committed to source control.
 - **Rationale:** Prevents credential leakage and unauthorized AWS account access.
 - **Related Architecture:** [Explicit Non-Goals](../architecture/architecture-overview.md#explicit-non-goals)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Inspection
 
@@ -78,7 +77,7 @@ Use the following template for each non-functional requirement:
 - **Description:** Infrastructure shall be defined as code (Terraform), not manually clicked in the console.
 - **Rationale:** Ensures reproducibility, version control, and peer review of infrastructure changes.
 - **Related Architecture:** [Module Boundaries](../architecture/architecture-overview.md#module-boundaries)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Inspection
 
@@ -88,7 +87,7 @@ Use the following template for each non-functional requirement:
 - **Description:** Frontend and backend shall each auto-deploy on push to their respective GitHub repos, gated by passing tests.
 - **Rationale:** Ensures only validated code reaches production while keeping deployments automated.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Demonstration
 
@@ -98,7 +97,7 @@ Use the following template for each non-functional requirement:
 - **Description:** Backend logic (Lambda) shall have automated unit tests; infrastructure changes shall be validated before deploying.
 - **Rationale:** Reduces regressions and catches issues before they reach production.
 - **Related Architecture:** [Logic Tier](../architecture/architecture-overview.md#2-logic-tier)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Test
 
@@ -108,7 +107,7 @@ Use the following template for each non-functional requirement:
 - **Description:** The CI/CD pipeline shall authenticate to AWS using short-lived credentials obtained via IAM OIDC federation with GitHub Actions, rather than long-lived IAM access keys.
 - **Rationale:** Eliminates the risk of leaked long-lived credentials and follows AWS security best practices.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Inspection
 
@@ -118,7 +117,7 @@ Use the following template for each non-functional requirement:
 - **Description:** A CloudWatch billing alarm shall be configured to alert if AWS costs exceed a defined threshold, to prevent unexpected charges during development.
 - **Rationale:** Provides early warning of unexpected spend, protecting against runaway costs.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
-- **Acceptance Criteria:** _TBD_
+- **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Demonstration
 
@@ -126,19 +125,18 @@ Use the following template for each non-functional requirement:
 
 | ID | Title | Category | Acceptance Criteria | Tracked by |
 |----|-------|----------|----------------------|------------|
-| NFR1 | High availability | Availability | _TBD_ | _TBD_ |
+| NFR1 | High availability | Availability | Self-evident — no dedicated AC | _TBD_ |
 | NFR2 | Free Tier cost constraint | Cost | AC-NFR2-1 | _TBD_ |
-| NFR3 | No public write access to data | Security | _TBD_ | _TBD_ |
-| NFR4 | No credentials in source control | Security | _TBD_ | _TBD_ |
-| NFR5 | Infrastructure as Code | Maintainability | _TBD_ | _TBD_ |
-| NFR6 | Gated CI/CD auto-deploy | Maintainability | _TBD_ | _TBD_ |
-| NFR7 | Automated backend testing | Maintainability | _TBD_ | _TBD_ |
-| NFR8 | OIDC-federated CI/CD authentication | Security | _TBD_ | _TBD_ |
-| NFR9 | Billing alarm | Cost | _TBD_ | _TBD_ |
+| NFR3 | No public write access to data | Security | Self-evident — no dedicated AC | _TBD_ |
+| NFR4 | No credentials in source control | Security | Self-evident — no dedicated AC | _TBD_ |
+| NFR5 | Infrastructure as Code | Maintainability | Self-evident — no dedicated AC | _TBD_ |
+| NFR6 | Gated CI/CD auto-deploy | Maintainability | Self-evident — no dedicated AC | _TBD_ |
+| NFR7 | Automated backend testing | Maintainability | Self-evident — no dedicated AC | _TBD_ |
+| NFR8 | OIDC-federated CI/CD authentication | Security | Self-evident — no dedicated AC | _TBD_ |
+| NFR9 | Billing alarm | Cost | Self-evident — no dedicated AC | _TBD_ |
 
 ---
 _Sourced from the non-functional requirements defined in the public
 [`cloud-resume-challenge`](https://github.com/waelLotfy/cloud-resume-challenge/blob/main/docs/01-Requirements/non-functional-requirements.md)
 repository. Acceptance criteria and issue tracking links are to be filled
 in as they are authored._
-```
