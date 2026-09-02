@@ -24,7 +24,7 @@ Use the following template for each non-functional requirement:
 - **Description:** <The quality attribute the system must exhibit>
 - **Rationale:** <Why this requirement exists>
 - **Related Architecture:** <link to architecture doc section>
-- **Acceptance Criteria:** <link(s) to acceptance-criteria.md>
+- **Acceptance Criteria:** <link(s) to acceptance-criteria.md, or "Self-evident — no dedicated AC" if verification is trivial>
 - **Tracked by:** #<issue-number>
 - **Verification Method:** <Test | Analysis | Inspection | Demonstration>
 ```
