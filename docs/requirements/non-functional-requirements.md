@@ -49,7 +49,7 @@ Use the following template for each non-functional requirement:
 - **Related Architecture:** [Style](../architecture/architecture-overview.md#style)
 - **Acceptance Criteria:** AC-NFR2-1
 - **Tracked by:** _TBD_
-- **Verification Method:** Analysis
+- **Verification Method:** Manual inspection
 
 ### NFR3: No public write access to data
 
@@ -87,9 +87,9 @@ Use the following template for each non-functional requirement:
 - **Description:** Frontend and backend shall each auto-deploy on push to their respective GitHub repos, gated by passing tests.
 - **Rationale:** Ensures only validated code reaches production while keeping deployments automated.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
-- **Acceptance Criteria:** Self-evident — no dedicated AC
+- **Acceptance Criteria:** AC-FR21-1, AC-FR23-1
 - **Tracked by:** _TBD_
-- **Verification Method:** Demonstration
+- **Verification Method:** Pipeline/CI validation
 
 ### NFR7: Automated backend testing
 
@@ -97,9 +97,9 @@ Use the following template for each non-functional requirement:
 - **Description:** Backend logic (Lambda) shall have automated unit tests; infrastructure changes shall be validated before deploying.
 - **Rationale:** Reduces regressions and catches issues before they reach production.
 - **Related Architecture:** [Logic Tier](../architecture/architecture-overview.md#2-logic-tier)
-- **Acceptance Criteria:** Self-evident — no dedicated AC
+- **Acceptance Criteria:** AC-FR12-14-2, AC-FR21-1
 - **Tracked by:** _TBD_
-- **Verification Method:** Test
+- **Verification Method:** Integration Test/Pipeline/CI validation
 
 ### NFR8: OIDC-federated CI/CD authentication
 
@@ -119,7 +119,7 @@ Use the following template for each non-functional requirement:
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
-- **Verification Method:** Demonstration
+- **Verification Method:** Manual inspection
 
 ## Non-Functional Requirements Register
 
@@ -136,7 +136,3 @@ Use the following template for each non-functional requirement:
 | NFR9 | Billing alarm | Cost | Self-evident — no dedicated AC | _TBD_ |
 
 ---
-_Sourced from the non-functional requirements defined in the public
-[`cloud-resume-challenge`](https://github.com/waelLotfy/cloud-resume-challenge/blob/main/docs/01-Requirements/non-functional-requirements.md)
-repository. Acceptance criteria and issue tracking links are to be filled
-in as they are authored._
