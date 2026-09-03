@@ -1,9 +1,10 @@
 # Architecture Overview
 
-> **Status:** Placeholder. To be completed once requirements
-> (`docs/requirements/`) are finalized. This document describes the
-> intended shape of the architecture only; it must be kept in sync with
-> `infrastructure/` as modules are implemented.
+Three-tier serverless architecture (Presentation / Logic / Data), with GitHub 
+Actions handling CI/CD via OIDC-federated IAM roles.
+
+<img width="949" height="1113" alt="ArchitecturalDesign" src="https://github.com/user-attachments/assets/fd752620-c3a7-4102-899a-cd85e69d349d" />
+
 
 ## V-Model Position
 
@@ -68,8 +69,3 @@ directly. Each module exposes inputs (`variables.tf`) and outputs
 (`outputs.tf`) only; wiring between tiers happens explicitly in
 [`infrastructure/environments/prod/main.tf`](../../infrastructure/environments/prod/main.tf).
 
-## Diagram
-
-> _TBD — add a diagram (e.g. draw.io, Mermaid, or image export) depicting
-> the three tiers, their AWS services, and data flow between them once the
-> architecture is finalized._
