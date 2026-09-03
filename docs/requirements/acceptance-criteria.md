@@ -17,17 +17,17 @@ Only requirements with non-trivial or ambiguous verification get an entry here. 
 
 ## Acceptance Criteria
 
-### AC-FR4-1: S3 static website returns resume
-- **Requirement:** FR4
+### AC-FR4-1: Public site returns resume
+- **Requirement:** FR1, FR4
 - **Criterion:** Visiting the S3 website endpoint URL returns the resume HTML with a 200 status
-- **Verification:** Manual inspection
-- **Test Reference:** _(TBD)_
+- **Verification:** E2E test
+- **Test Reference:** `tests/e2e/test_site_availability.py`
 
 ### AC-FR5-1: HTTP redirects to HTTPS
 - **Requirement:** FR5
 - **Criterion:** Visiting the site over http:// redirects to https://
-- **Verification:** Manual inspection
-- **Test Reference:** _(TBD)_
+- **Verification:** E2E test
+- **Test Reference:** `tests/e2e/test_https_redirect.py`
 
 ### AC-FR5-2: Valid TLS certificate
 - **Requirement:** FR5
@@ -35,17 +35,65 @@ Only requirements with non-trivial or ambiguous verification get an entry here. 
 - **Verification:** Manual inspection
 - **Test Reference:** _(TBD)_
 
+### AC-FR7-1: Custom domain resolves to CloudFront
+- **Requirement:** FR7
+- **Criterion:** DNS lookup of the custom domain returns a valid record resolving to the CloudFront distribution
+- **Verification:** DNS/Network validation
+- **Test Reference:** `tests/integration/test_dns_resolution.py`
+
+### AC-FR8-1: Custom domain served via CloudFront
+- **Requirement:** FR6, FR8
+- **Criterion:** GET request to the custom domain returns HTTP 200 and response headers confirm the response was served via CloudFront
+- **Verification:** E2E test
+- **Test Reference:** `tests/e2e/test_cloudfront_routing.py`
+
 ### AC-FR10-1: Visitor counter displays on load
 - **Requirement:** FR10
 - **Criterion:** Counter shows a number on page load
-- **Verification:** Manual inspection
-- **Test Reference:** _(TBD)_
+- **Verification:** E2E test
+- **Test Reference:** `tests/e2e/test_visitor_counter_display.py`
 
 ### AC-FR10-2: Visitor counter increments on refresh
 - **Requirement:** FR10
 - **Criterion:** Refreshing the page increments the number by 1
+- **Verification:** E2E test
+- **Test Reference:** `tests/e2e/test_visitor_counter_display.py`
+
+### AC-FR12-14-1: API returns and increments visitor count
+- **Requirement:** FR12, FR14
+- **Criterion:** GET request to the API endpoint returns a numeric count field, and the DynamoDB item value has incremented by 1 from its prior state
 - **Verification:** Integration test
-- **Test Reference:** _(TBD)_
+- **Test Reference:** `tests/integration/test_visitor_counter_api.py`
+
+### AC-FR12-14-2: Lambda handler logic (mocked)
+- **Requirement:** FR12, FR14
+- **Criterion:** Given a mocked DynamoDB client, invoking the Lambda handler calls `update_item` with the correct key/increment expression and returns the expected count
+- **Verification:** Unit test
+- **Test Reference:** `tests/unit/test_lambda_handler.py`
+
+### AC-FR21-1: Backend CI/CD pipeline succeeds
+- **Requirement:** FR21
+- **Criterion:** A push to the backend repository's main branch results in a GitHub Actions run where the pytest job and Terraform apply step both complete successfully
+- **Verification:** Pipeline/CI validation
+- **Test Reference:** CI workflow run status (`.github/workflows/backend-deploy.yml`)
+
+### AC-FR23-1: Frontend CI/CD pipeline succeeds
+- **Requirement:** FR23
+- **Criterion:** A push to the frontend repository's main branch results in the S3 bucket object's ETag/last-modified value changing to reflect the new content
+- **Verification:** Pipeline/CI validation
+- **Test Reference:** CI workflow run status (`.github/workflows/frontend-deploy.yml`)
+
+### AC-FR24-1: CloudFront cache invalidation triggered
+- **Requirement:** FR24
+- **Criterion:** Following a completed frontend deployment, the CI/CD workflow logs show a successful CloudFront `create-invalidation` API call
+- **Verification:** Pipeline/CI validation
+- **Test Reference:** CI workflow log inspection (`.github/workflows/frontend-deploy.yml`)
+
+### AC-FR25-1: Lambda invocation logged to CloudWatch
+- **Requirement:** FR25
+- **Criterion:** Following a Lambda invocation via the API, the corresponding CloudWatch log group contains a log entry with the invocation timestamp and request details
+- **Verification:** Integration test
+- **Test Reference:** `tests/integration/test_cloudwatch_logging.py`
 
 ### AC-NFR2-1: Free tier cost maintained
 - **Requirement:** NFR2
@@ -59,11 +107,19 @@ Only requirements with non-trivial or ambiguous verification get an entry here. 
 
 | ID | Requirement | Criterion | Verification | Test Reference |
 |----|-------------|-----------|---------------|-----------------|
-| AC-FR4-1 | FR4 | S3 endpoint returns resume HTML, 200 status | Manual inspection | _(TBD)_ |
-| AC-FR5-1 | FR5 | HTTP redirects to HTTPS | Manual inspection | _(TBD)_ |
+| AC-FR4-1 | FR1, FR4 | S3 endpoint returns resume HTML, 200 status | E2E test | `tests/e2e/test_site_availability.py` |
+| AC-FR5-1 | FR5 | HTTP redirects to HTTPS | E2E test | `tests/e2e/test_https_redirect.py` |
 | AC-FR5-2 | FR5 | Valid TLS certificate shown | Manual inspection | _(TBD)_ |
-| AC-FR10-1 | FR10 | Counter shows number on load | Manual inspection | _(TBD)_ |
-| AC-FR10-2 | FR10 | Counter increments by 1 on refresh | Integration test | _(TBD)_ |
+| AC-FR7-1 | FR7 | Domain resolves to CloudFront | DNS/Network validation | `tests/integration/test_dns_resolution.py` |
+| AC-FR8-1 | FR6, FR8 | Domain served via CloudFront | E2E test | `tests/e2e/test_cloudfront_routing.py` |
+| AC-FR10-1 | FR10 | Counter shows number on load | E2E test | `tests/e2e/test_visitor_counter_display.py` |
+| AC-FR10-2 | FR10 | Counter increments by 1 on refresh | E2E test | `tests/e2e/test_visitor_counter_display.py` |
+| AC-FR12-14-1 | FR12, FR14 | API returns/increments count in DynamoDB | Integration test | `tests/integration/test_visitor_counter_api.py` |
+| AC-FR12-14-2 | FR12, FR14 | Lambda handler logic (mocked DynamoDB) | Unit test | `tests/unit/test_lambda_handler.py` |
+| AC-FR21-1 | FR21 | Backend CI/CD pipeline succeeds | Pipeline/CI validation | `.github/workflows/backend-deploy.yml` |
+| AC-FR23-1 | FR23 | Frontend CI/CD pipeline succeeds | Pipeline/CI validation | `.github/workflows/frontend-deploy.yml` |
+| AC-FR24-1 | FR24 | Cache invalidation call succeeds | Pipeline/CI validation | `.github/workflows/frontend-deploy.yml` |
+| AC-FR25-1 | FR25 | Lambda invocation logged to CloudWatch | Integration test | `tests/integration/test_cloudwatch_logging.py` |
 | AC-NFR2-1 | NFR2 | $0/near-$0 cost after 1 week | Manual inspection | _(TBD)_ |
 
 ---
