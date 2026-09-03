@@ -316,7 +316,3 @@ Use the following template for each functional requirement:
 | FR25 | Logging to CloudWatch | Cross-cutting | [AC-FR25-1](./acceptance-criteria.md#ac-fr25-1-lambda-invocation-logged-to-cloudwatch) | _TBD_ |
 
 ---
-_Sourced from the functional requirements defined in the public
-[`cloud-resume-challenge`](https://github.com/waelLotfy/cloud-resume-challenge/blob/main/docs/01-Requirements/functional-requirements.md)
-repository. Acceptance criteria and issue tracking links are to be filled
-in as they are authored._
