@@ -4,7 +4,7 @@ This document is the single source of truth for functional requirements
 (FR1–FR25) of the Cloud Resume Challenge project. Each requirement must be
 traceable to:
 
-- An architecture element in [`docs/architecture/architecture.md`](../architecture/architecture.md)
+- An architecture element in [`docs/architecture/architecture-overview.md`](../architecture/architecture-overview.md)
 - One or more acceptance criteria in [`docs/requirements/acceptance-criteria.md`](./acceptance-criteria.md)
 - A GitHub Issue (see [`docs/traceability-matrix.md`](../traceability-matrix.md))
 - Test(s) under `tests/` (unit, integration, and/or acceptance)
@@ -40,7 +40,7 @@ Use the following template for each functional requirement:
 - **Description:** The system shall display a resume to any visitor via a public URL.
 - **Rationale:** The resume must be accessible to anyone (e.g. recruiters) without authentication.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** [AC-FR4-1](./acceptance-criteria.md#ac-fr4-1-public-site-returns-resume)
 - **Tracked by:** _TBD_
 - **Verification Method:** E2E test
@@ -50,7 +50,7 @@ Use the following template for each functional requirement:
 - **Description:** The resume shall be written in HTML.
 - **Rationale:** HTML is the standard markup for web content served to browsers.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -60,7 +60,7 @@ Use the following template for each functional requirement:
 - **Description:** The resume shall be styled with CSS.
 - **Rationale:** CSS provides visual presentation separate from content structure.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -70,7 +70,7 @@ Use the following template for each functional requirement:
 - **Description:** The resume shall be deployed online as an Amazon S3 static website.
 - **Rationale:** S3 static hosting is a low-cost, highly available serverless hosting option.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** [AC-FR4-1](./acceptance-criteria.md#ac-fr4-1-public-site-returns-resume)
 - **Tracked by:** _TBD_
 - **Verification Method:** E2E test
@@ -80,7 +80,7 @@ Use the following template for each functional requirement:
 - **Description:** The S3 static website shall use HTTPS for security.
 - **Rationale:** HTTPS protects data in transit and is expected by modern browsers.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** [AC-FR5-1](./acceptance-criteria.md#ac-fr5-1-http-redirects-to-https), [AC-FR5-2](./acceptance-criteria.md#ac-fr5-2-valid-tls-certificate)
 - **Tracked by:** _TBD_
 - **Verification Method:** E2E test
@@ -90,7 +90,7 @@ Use the following template for each functional requirement:
 - **Description:** The Amazon CloudFront shall be used.
 - **Rationale:** CloudFront provides CDN/edge distribution, caching, and TLS termination for the site.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** [AC-FR8-1](./acceptance-criteria.md#ac-fr8-1-custom-domain-served-via-cloudfront)
 - **Tracked by:** _TBD_
 - **Verification Method:** E2E test
@@ -100,7 +100,7 @@ Use the following template for each functional requirement:
 - **Description:** The site shall be reachable via a custom DNS domain name.
 - **Rationale:** A custom domain provides a professional, memorable URL for the resume.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** [AC-FR7-1](./acceptance-criteria.md#ac-fr7-1-custom-domain-resolves-to-cloudfront)
 - **Tracked by:** _TBD_
 - **Verification Method:** DNS/Network validation
@@ -110,7 +110,7 @@ Use the following template for each functional requirement:
 - **Description:** The custom DNS domain name shall be pointed to the CloudFront distribution.
 - **Rationale:** Ensures traffic to the custom domain is served via the CDN.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** [AC-FR8-1](./acceptance-criteria.md#ac-fr8-1-custom-domain-served-via-cloudfront)
 - **Tracked by:** _TBD_
 - **Verification Method:** E2E test
@@ -120,7 +120,7 @@ Use the following template for each functional requirement:
 - **Description:** The Amazon Route 53 shall be used as the DNS provider.
 - **Rationale:** Route 53 integrates natively with other AWS services (ACM, CloudFront) used in this architecture.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -130,7 +130,7 @@ Use the following template for each functional requirement:
 - **Description:** The resume webpage shall include a visitor counter that displays how many people have accessed the site.
 - **Rationale:** Provides a simple, well-known dynamic feature demonstrating full-stack integration.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** [AC-FR10-1](./acceptance-criteria.md#ac-fr10-1-visitor-counter-displays-on-load), [AC-FR10-2](./acceptance-criteria.md#ac-fr10-2-visitor-counter-increments-on-refresh)
 - **Tracked by:** _TBD_
 - **Verification Method:** E2E test
@@ -140,7 +140,7 @@ Use the following template for each functional requirement:
 - **Description:** The visitor counter shall be implemented in JavaScript.
 - **Rationale:** JavaScript runs client-side in the browser to call the backend API and render the count.
 - **Tier/Component:** Presentation
-- **Related Architecture:** [Presentation Tier](../architecture/architecture.md#1-presentation-tier)
+- **Related Architecture:** [Presentation Tier](../architecture/architecture-overview.md#1-presentation-tier)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -150,7 +150,7 @@ Use the following template for each functional requirement:
 - **Description:** Amazon DynamoDB shall be used to retrieve and update the count of the visitor counter.
 - **Rationale:** DynamoDB is a serverless, low-cost NoSQL data store suitable for a simple counter.
 - **Tier/Component:** Data
-- **Related Architecture:** [Data Tier](../architecture/architecture.md#3-data-tier)
+- **Related Architecture:** [Data Tier](../architecture/architecture-overview.md#3-data-tier)
 - **Acceptance Criteria:** [AC-FR12-14-1](./acceptance-criteria.md#ac-fr12-14-1-api-returns-and-increments-visitor-count), [AC-FR12-14-2](./acceptance-criteria.md#ac-fr12-14-2-lambda-handler-logic-mocked)
 - **Tracked by:** _TBD_
 - **Verification Method:** Integration test
@@ -160,7 +160,7 @@ Use the following template for each functional requirement:
 - **Description:** There shall be no communication directly with DynamoDB from the JavaScript code.
 - **Rationale:** Enforces separation of concerns and prevents exposing database credentials/access to the client.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -170,7 +170,7 @@ Use the following template for each functional requirement:
 - **Description:** AWS API Gateway and Lambda services shall be used for communication between the JavaScript code and DynamoDB.
 - **Rationale:** Provides a controlled, serverless API layer between the frontend and the data store.
 - **Tier/Component:** Logic
-- **Related Architecture:** [Logic Tier](../architecture/architecture.md#2-logic-tier)
+- **Related Architecture:** [Logic Tier](../architecture/architecture-overview.md#2-logic-tier)
 - **Acceptance Criteria:** [AC-FR12-14-1](./acceptance-criteria.md#ac-fr12-14-1-api-returns-and-increments-visitor-count)
 - **Tracked by:** _TBD_
 - **Verification Method:** Integration test
@@ -180,7 +180,7 @@ Use the following template for each functional requirement:
 - **Description:** The Lambda function code shall be written in Python.
 - **Rationale:** Python is a widely supported Lambda runtime with strong AWS SDK (boto3) support.
 - **Tier/Component:** Logic
-- **Related Architecture:** [Logic Tier](../architecture/architecture.md#2-logic-tier)
+- **Related Architecture:** [Logic Tier](../architecture/architecture-overview.md#2-logic-tier)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -190,7 +190,7 @@ Use the following template for each functional requirement:
 - **Description:** There shall be tests for the implemented Python code.
 - **Rationale:** Automated tests validate backend correctness and prevent regressions.
 - **Tier/Component:** Logic
-- **Related Architecture:** [Logic Tier](../architecture/architecture.md#2-logic-tier)
+- **Related Architecture:** [Logic Tier](../architecture/architecture-overview.md#2-logic-tier)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -200,7 +200,7 @@ Use the following template for each functional requirement:
 - **Description:** Infrastructure as Code shall be used for configuring the API resources, the DynamoDB table, the API Gateway, and the Lambda function.
 - **Rationale:** IaC ensures reproducible, version-controlled infrastructure.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -210,7 +210,7 @@ Use the following template for each functional requirement:
 - **Description:** The infrastructure as code shall be Terraform.
 - **Rationale:** Terraform is the chosen IaC tool for this project, providing declarative, provider-agnostic configuration.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Module Boundaries](../architecture/architecture.md#module-boundaries)
+- **Related Architecture:** [Module Boundaries](../architecture/architecture-overview.md#module-boundaries)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -220,7 +220,7 @@ Use the following template for each functional requirement:
 - **Description:** Any update in the back-end API or the front-end website shall be done automatically through using CI/CD.
 - **Rationale:** Automating deployments reduces manual error and enables fast, reliable delivery.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Demonstration
@@ -230,7 +230,7 @@ Use the following template for each functional requirement:
 - **Description:** A GitHub repository shall be created for the backend code.
 - **Rationale:** Separates backend and frontend concerns, enabling independent versioning and pipelines.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -240,7 +240,7 @@ Use the following template for each functional requirement:
 - **Description:** GitHub Actions shall be set up for code implementation, tests, and deployment of the backend code.
 - **Rationale:** Ensures the backend is automatically tested and deployed on changes.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** [AC-FR21-1](./acceptance-criteria.md#ac-fr21-1-backend-cicd-pipeline-succeeds)
 - **Tracked by:** _TBD_
 - **Verification Method:** Pipeline/CI validation
@@ -250,7 +250,7 @@ Use the following template for each functional requirement:
 - **Description:** A second GitHub repository shall be created for the website code (frontend code).
 - **Rationale:** Separates backend and frontend concerns, enabling independent versioning and pipelines.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -260,7 +260,7 @@ Use the following template for each functional requirement:
 - **Description:** GitHub Actions shall be set up for code implementation, tests, and deployment of the frontend code (for example, when new website code is pushed, the S3 bucket automatically gets updated).
 - **Rationale:** Ensures the frontend is automatically deployed to S3 on changes.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** [AC-FR23-1](./acceptance-criteria.md#ac-fr23-1-frontend-cicd-pipeline-succeeds)
 - **Tracked by:** _TBD_
 - **Verification Method:** Pipeline/CI validation
@@ -270,7 +270,7 @@ Use the following template for each functional requirement:
 - **Description:** The CloudFront cache shall be invalidated automatically as part of the frontend CI/CD deployment (FR23).
 - **Rationale:** Ensures visitors see the latest deployed content without stale cached assets.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** [AC-FR24-1](./acceptance-criteria.md#ac-fr24-1-cloudfront-cache-invalidation-triggered)
 - **Tracked by:** _TBD_
 - **Verification Method:** Pipeline/CI validation
@@ -280,7 +280,7 @@ Use the following template for each functional requirement:
 - **Description:** The system shall emit Lambda execution logs and API Gateway access logs to CloudWatch for troubleshooting and operational visibility.
 - **Rationale:** Centralized logging supports debugging and operational monitoring.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture.md#cross-cutting-concerns)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** [AC-FR25-1](./acceptance-criteria.md#ac-fr25-1-lambda-invocation-logged-to-cloudwatch)
 - **Tracked by:** _TBD_
 - **Verification Method:** Integration test
