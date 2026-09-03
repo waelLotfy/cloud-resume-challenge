@@ -47,7 +47,7 @@ Use the following template for each non-functional requirement:
 - **Description:** The system shall run within AWS Free Tier for low traffic.
 - **Rationale:** Keeps operating costs at (or near) zero during development and low-traffic usage.
 - **Related Architecture:** [Style](../architecture/architecture-overview.md#style)
-- **Acceptance Criteria:** AC-NFR2-1
+- **Acceptance Criteria:** [AC-NFR2-1](./acceptance-criteria.md#ac-nfr2-1-free-tier-cost-maintained)
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
 
@@ -87,7 +87,7 @@ Use the following template for each non-functional requirement:
 - **Description:** Frontend and backend shall each auto-deploy on push to their respective GitHub repos, gated by passing tests.
 - **Rationale:** Ensures only validated code reaches production while keeping deployments automated.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
-- **Acceptance Criteria:** AC-FR21-1, AC-FR23-1
+- **Acceptance Criteria:** [AC-FR21-1](./acceptance-criteria.md#ac-fr21-1-backend-cicd-pipeline-succeeds), [AC-FR23-1](./acceptance-criteria.md#ac-fr23-1-frontend-cicd-pipeline-succeeds)
 - **Tracked by:** _TBD_
 - **Verification Method:** Pipeline/CI validation
 
@@ -97,7 +97,7 @@ Use the following template for each non-functional requirement:
 - **Description:** Backend logic (Lambda) shall have automated unit tests; infrastructure changes shall be validated before deploying.
 - **Rationale:** Reduces regressions and catches issues before they reach production.
 - **Related Architecture:** [Logic Tier](../architecture/architecture-overview.md#2-logic-tier)
-- **Acceptance Criteria:** AC-FR12-14-2, AC-FR21-1
+- **Acceptance Criteria:** [AC-FR12-14-2](./acceptance-criteria.md#ac-fr12-14-2-lambda-handler-logic-mocked), [AC-FR21-1](./acceptance-criteria.md#ac-fr21-1-backend-cicd-pipeline-succeeds)
 - **Tracked by:** _TBD_
 - **Verification Method:** Integration Test/Pipeline/CI validation
 
@@ -126,7 +126,7 @@ Use the following template for each non-functional requirement:
 | ID | Title | Category | Acceptance Criteria | Tracked by |
 |----|-------|----------|----------------------|------------|
 | NFR1 | High availability | Availability | Self-evident — no dedicated AC | _TBD_ |
-| NFR2 | Free Tier cost constraint | Cost | AC-NFR2-1 | _TBD_ |
+| NFR2 | Free Tier cost constraint | Cost | [AC-NFR2-1](./acceptance-criteria.md#ac-nfr2-1-free-tier-cost-maintained) | _TBD_ |
 | NFR3 | No public write access to data | Security | Self-evident — no dedicated AC | _TBD_ |
 | NFR4 | No credentials in source control | Security | Self-evident — no dedicated AC | _TBD_ |
 | NFR5 | Infrastructure as Code | Maintainability | Self-evident — no dedicated AC | _TBD_ |
