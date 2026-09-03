@@ -56,6 +56,7 @@ choice, not an omission, and is recorded in
 - **Observability:** Amazon CloudWatch (logs, metrics, alarms).
 - **CI/CD:** GitHub Actions, authenticating to AWS via OIDC-federated IAM
   roles — no long-lived AWS credentials stored in source or secrets.
+- **Related Requirements:** _TBD_
 
 ## Explicit Non-Goals
 
