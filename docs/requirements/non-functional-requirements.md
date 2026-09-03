@@ -46,7 +46,7 @@ Use the following template for each non-functional requirement:
 - **Category:** Cost
 - **Description:** The system shall run within AWS Free Tier for low traffic.
 - **Rationale:** Keeps operating costs at (or near) zero during development and low-traffic usage.
-- **Related Architecture:** [Style](../architecture/architecture-overview.md#style)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** [AC-NFR2-1](./acceptance-criteria.md#ac-nfr2-1-free-tier-cost-maintained)
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
@@ -66,7 +66,7 @@ Use the following template for each non-functional requirement:
 - **Category:** Security
 - **Description:** AWS credentials shall not be committed to source control.
 - **Rationale:** Prevents credential leakage and unauthorized AWS account access.
-- **Related Architecture:** [Explicit Non-Goals](../architecture/architecture-overview.md#explicit-non-goals)
+- **Related Architecture:**  [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Inspection
@@ -76,7 +76,7 @@ Use the following template for each non-functional requirement:
 - **Category:** Maintainability
 - **Description:** Infrastructure shall be defined as code (Terraform), not manually clicked in the console.
 - **Rationale:** Ensures reproducibility, version control, and peer review of infrastructure changes.
-- **Related Architecture:** [Module Boundaries](../architecture/architecture-overview.md#module-boundaries)
+- **Related Architecture:**  [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Inspection
