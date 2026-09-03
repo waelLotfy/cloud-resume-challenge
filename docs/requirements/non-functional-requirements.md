@@ -3,7 +3,13 @@
 This document is the single source of truth for non-functional
 requirements (NFR1–NFR9) of the Cloud Resume Challenge project — covering
 qualities such as performance, security, availability, cost, and
-maintainability rather than specific features.
+maintainability rather than specific features. Each requirement must be
+traceable to:
+
+- An architecture element in [`docs/architecture/architecture-overview.md`](../architecture/architecture-overview.md)
+- One or more acceptance criteria in [`docs/requirements/acceptance-criteria.md`](./acceptance-criteria.md)
+- A GitHub Issue and row in [`docs/traceability-matrix.md`](../traceability-matrix.md)
+- Verification method(s) (tests under `tests/`, CI validation, or inspection)
 
 ## Requirement ID Convention
 
