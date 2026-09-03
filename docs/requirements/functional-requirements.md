@@ -210,7 +210,7 @@ Use the following template for each functional requirement:
 - **Description:** The infrastructure as code shall be Terraform.
 - **Rationale:** Terraform is the chosen IaC tool for this project, providing declarative, provider-agnostic configuration.
 - **Tier/Component:** Cross-cutting
-- **Related Architecture:** [Module Boundaries](../architecture/architecture-overview.md#module-boundaries)
+- **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
 - **Tracked by:** _TBD_
 - **Verification Method:** Manual inspection
