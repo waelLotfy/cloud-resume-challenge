@@ -131,14 +131,14 @@ Use the following template for each non-functional requirement:
 
 | ID | Title | Category | Acceptance Criteria | Tracked by |
 |----|-------|----------|----------------------|------------|
-| NFR1 | High availability | Availability | Self-evident — no dedicated AC | _TBD_ |
-| NFR2 | Free Tier cost constraint | Cost | [AC-NFR2-1](./acceptance-criteria.md#ac-nfr2-1-free-tier-cost-maintained) | _TBD_ |
-| NFR3 | No public write access to data | Security | Self-evident — no dedicated AC | _TBD_ |
-| NFR4 | No credentials in source control | Security | Self-evident — no dedicated AC | _TBD_ |
-| NFR5 | Infrastructure as Code | Maintainability | Self-evident — no dedicated AC | _TBD_ |
-| NFR6 | Gated CI/CD auto-deploy | Maintainability | Self-evident — no dedicated AC | _TBD_ |
-| NFR7 | Automated backend testing | Maintainability | Self-evident — no dedicated AC | _TBD_ |
-| NFR8 | OIDC-federated CI/CD authentication | Security | Self-evident — no dedicated AC | _TBD_ |
-| NFR9 | Billing alarm | Cost | Self-evident — no dedicated AC | _TBD_ |
+| [NFR1](#nfr1-high-availability) | High availability | Availability | Self-evident — no dedicated AC | _TBD_ |
+| [NFR2](#nfr2-free-tier-cost-constraint) | Free Tier cost constraint | Cost | [AC-NFR2-1](./acceptance-criteria.md#ac-nfr2-1-free-tier-cost-maintained) | _TBD_ |
+| [NFR3](#nfr3-no-public-write-access-to-data) | No public write access to data | Security | Self-evident — no dedicated AC | _TBD_ |
+| [NFR4](#nfr4-no-credentials-in-source-control) | No credentials in source control | Security | Self-evident — no dedicated AC | _TBD_ |
+| [NFR5](#nfr5-infrastructure-as-code) | Infrastructure as Code | Maintainability | Self-evident — no dedicated AC | _TBD_ |
+| [NFR6](#nfr6-gated-cicd-auto-deploy) | Gated CI/CD auto-deploy | Maintainability | Self-evident — no dedicated AC | _TBD_ |
+| [NFR7](#nfr7-automated-backend-testing) | Automated backend testing | Maintainability | Self-evident — no dedicated AC | _TBD_ |
+| [NFR8](#nfr8-oidc-federated-cicd-authentication) | OIDC-federated CI/CD authentication | Security | Self-evident — no dedicated AC | _TBD_ |
+| [NFR9](#nfr9-billing-alarm) | Billing alarm | Cost | Self-evident — no dedicated AC | _TBD_ |
 
 ---
