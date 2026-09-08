@@ -1,0 +1,48 @@
+name: Create Requirement Issues
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview requirements/issues without creating anything"
+        type: boolean
+        required: false
+        default: false
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/requirements/functional-requirements.md"
+      - "docs/requirements/non-functional-requirements.md"
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create/update requirement issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: |
+          python scripts/create_requirement_issues.py ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+
+      - name: Upload requirement/issue mapping
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: requirement-issue-mapping
+          path: requirement-issue-mapping.json
+          if-no-files-found: ignore

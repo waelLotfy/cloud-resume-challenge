@@ -1,0 +1,27 @@
+# Functional Requirements
+
+- **FR1 (Resume Content):** The website shall display the user's resume, including name, contact information, summary, work experience, education, and skills.
+- **FR2 (Static Hosting):** The resume website shall be hosted as a static site using Amazon S3.
+- **FR3 (Content Delivery):** The static site shall be served through Amazon CloudFront to provide global caching and HTTPS delivery.
+- **FR4 (Custom Domain):** The website shall be reachable via a custom domain name configured through Amazon Route 53.
+- **FR5 (HTTPS):** The website shall enforce HTTPS for all visitor connections using an ACM-issued TLS certificate.
+- **FR6 (Visitor Counter Display):** The resume page shall display a visitor counter showing the number of times the page has been viewed.
+- **FR7 (Visitor Counter Increment):** Each page load shall increment the visitor counter by one.
+- **FR8 (Visitor Counter API):** The frontend shall retrieve and update the visitor counter by calling a backend API endpoint.
+- **FR9 (API Gateway):** The backend API shall be exposed through Amazon API Gateway.
+- **FR10 (Lambda Backend):** The API shall be backed by an AWS Lambda function that implements the visitor counter logic.
+- **FR11 (Database Storage):** The visitor counter value shall be persisted in Amazon DynamoDB.
+- **FR12 (Counter Read):** The Lambda function shall support reading the current visitor counter value from DynamoDB.
+- **FR13 (Counter Write):** The Lambda function shall support incrementing and writing the updated visitor counter value to DynamoDB.
+- **FR14 (Error Handling):** The API shall return a meaningful error response if the counter cannot be read or updated.
+- **FR15 (CORS Support):** The API shall support Cross-Origin Resource Sharing (CORS) so the frontend can call it from the browser.
+- **FR16 (Frontend Repository):** The frontend code (HTML/CSS/JavaScript) shall be maintained in its own version-controlled repository.
+- **FR17 (Backend Repository):** The backend code (Lambda function and infrastructure) shall be maintained in its own version-controlled repository.
+- **FR18 (Frontend CI/CD):** A GitHub Actions workflow shall automatically deploy frontend changes to S3/CloudFront when changes are pushed to the frontend repository's main branch.
+- **FR19 (Backend CI/CD):** A GitHub Actions workflow shall automatically deploy backend changes (Lambda and infrastructure) when changes are pushed to the backend repository's main branch.
+- **FR20 (Infrastructure as Code):** All AWS infrastructure (S3, CloudFront, API Gateway, Lambda, DynamoDB, Route 53) shall be provisioned and managed using Terraform.
+- **FR21 (Backend Unit Tests):** The Lambda function shall have automated unit tests that run as part of the CI pipeline before deployment.
+- **FR22 (Cache Invalidation):** The frontend deployment pipeline shall invalidate the CloudFront cache after deploying updated static content.
+- **FR23 (Responsive Design):** The resume website shall render correctly on both desktop and mobile browser viewport sizes.
+- **FR24 (Requirement Tracking):** Each functional and non-functional requirement shall be tracked as an individual GitHub Issue for progress visibility.
+- **FR25 (Secure AWS Access):** CI/CD pipelines shall authenticate to AWS without storing long-lived credentials in the repository, relying on IAM OIDC federation instead.
