@@ -1,0 +1,15 @@
+# Documentation
+
+This directory holds all documentation for the Cloud Resume Challenge
+project, organized by V-Model SDLC stage.
+
+| Directory / Document | V-Model Stage | Contents |
+|----------------------|----------------|----------|
+| [`requirements/`](./requirements) | Requirements | Functional requirements (FR1–FR25), non-functional requirements (NFR1–NFR9), acceptance criteria |
+| [`traceability-matrix.md`](./traceability-matrix.md) | Cross-cutting | Unified requirements-to-architecture-implementation-test traceability matrix |
+| [`architecture/`](./architecture) | Architecture | Three-tier architecture overview, diagrams |
+| [`decisions/`](./decisions) | Architecture | Architecture Decision Records (ADRs) |
+| [`traceability/`](./traceability) | Cross-cutting | GitHub-native requirements-to-implementation traceability approach |
+
+See the [top-level README](../README.md) for the full project overview
+and V-Model lifecycle mapping.

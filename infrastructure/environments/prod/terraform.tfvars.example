@@ -1,0 +1,7 @@
+# Example tfvars file for the "prod" environment.
+# Copy to terraform.tfvars (which is gitignored) and fill in real values.
+#
+# Placeholder scaffold — populate once requirements/architecture are final.
+
+# aws_region  = "<TBD>"
+# domain_name = "<TBD>"
