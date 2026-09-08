@@ -94,7 +94,7 @@ Use the following template for each non-functional requirement:
 - **Rationale:** Ensures only validated code reaches production while keeping deployments automated.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** [AC-FR21-1](./acceptance-criteria.md#ac-fr21-1-backend-cicd-pipeline-succeeds), [AC-FR23-1](./acceptance-criteria.md#ac-fr23-1-frontend-cicd-pipeline-succeeds)
-- **Tracked by:** [#36](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/36)
+- **Tracked by:** [#38](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/38)
 - **Verification Method:** Pipeline/CI validation
 
 ### NFR7: Automated backend testing
@@ -104,7 +104,7 @@ Use the following template for each non-functional requirement:
 - **Rationale:** Reduces regressions and catches issues before they reach production.
 - **Related Architecture:** [Logic Tier](../architecture/architecture-overview.md#2-logic-tier)
 - **Acceptance Criteria:** [AC-FR12-14-2](./acceptance-criteria.md#ac-fr12-14-2-lambda-handler-logic-mocked), [AC-FR21-1](./acceptance-criteria.md#ac-fr21-1-backend-cicd-pipeline-succeeds)
-- **Tracked by:** [#37](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/37)
+- **Tracked by:** [#39](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/39)
 - **Verification Method:** Integration Test/Pipeline/CI validation
 
 ### NFR8: OIDC-federated CI/CD authentication
@@ -114,7 +114,7 @@ Use the following template for each non-functional requirement:
 - **Rationale:** Eliminates the risk of leaked long-lived credentials and follows AWS security best practices.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
-- **Tracked by:** [#38](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/38)
+- **Tracked by:** [#40](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/40)
 - **Verification Method:** Inspection
 
 ### NFR9: Billing alarm
@@ -124,7 +124,7 @@ Use the following template for each non-functional requirement:
 - **Rationale:** Provides early warning of unexpected spend, protecting against runaway costs.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
-- **Tracked by:** [#39](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/39)
+- **Tracked by:** [#41](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/41)
 - **Verification Method:** Manual inspection
 
 ## Non-Functional Requirements Register
@@ -136,9 +136,9 @@ Use the following template for each non-functional requirement:
 | [NFR3](#nfr3-no-public-write-access-to-data) | No public write access to data | Security | Self-evident — no dedicated AC | [#33](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/33) |
 | [NFR4](#nfr4-no-credentials-in-source-control) | No credentials in source control | Security | Self-evident — no dedicated AC | [#34](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/34) |
 | [NFR5](#nfr5-infrastructure-as-code) | Infrastructure as Code | Maintainability | Self-evident — no dedicated AC | [#35](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/35) |
-| [NFR6](#nfr6-gated-cicd-auto-deploy) | Gated CI/CD auto-deploy | Maintainability | Self-evident — no dedicated AC | [#36](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/36) |
-| [NFR7](#nfr7-automated-backend-testing) | Automated backend testing | Maintainability | Self-evident — no dedicated AC | [#37](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/37) |
-| [NFR8](#nfr8-oidc-federated-cicd-authentication) | OIDC-federated CI/CD authentication | Security | Self-evident — no dedicated AC | [#38](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/38) |
-| [NFR9](#nfr9-billing-alarm) | Billing alarm | Cost | Self-evident — no dedicated AC | [#39](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/39) |
+| [NFR6](#nfr6-gated-cicd-auto-deploy) | Gated CI/CD auto-deploy | Maintainability | Self-evident — no dedicated AC | [#38](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/38) |
+| [NFR7](#nfr7-automated-backend-testing) | Automated backend testing | Maintainability | Self-evident — no dedicated AC | [#39](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/39) |
+| [NFR8](#nfr8-oidc-federated-cicd-authentication) | OIDC-federated CI/CD authentication | Security | Self-evident — no dedicated AC | [#40](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/40) |
+| [NFR9](#nfr9-billing-alarm) | Billing alarm | Cost | Self-evident — no dedicated AC | [#41](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/41) |
 
 ---
