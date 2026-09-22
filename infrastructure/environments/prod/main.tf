@@ -4,14 +4,17 @@
 # reference each other directly — any values a module needs from another
 # tier are read from that module's outputs here and passed in as inputs.
 #
-# NOTE: This is a placeholder scaffold. Module calls must be completed
-# once requirements (docs/requirements/) and the architecture
-# (docs/architecture/architecture-overview.md) are finalized.
+# ---------------------------------------------------------
+# Call the presentation module
+# Pass the bucket_name variable down to the module.
+# ---------------------------------------------------------
+module "presentation" {
 
-# TODO: module "presentation" {
-#   source = "../../modules/presentation"
-#   # ...
-# }
+  source = "../../modules/presentation"
+  # The root module provides the actual bucket name.
+  # This value flows into the module's variable "bucket_name".
+  bucket_name = var.bucket_name
+}
 
 # TODO: module "data" {
 #   source = "../../modules/data"
