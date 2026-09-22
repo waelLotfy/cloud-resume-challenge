@@ -15,10 +15,15 @@
 #     }
 #   }
 # }
-
-# TODO: provider "aws" {
-#   region = var.aws_region
-# }
+# ---------------------------------------------------------
+# AWS provider configuration
+# This tells Terraform which cloud and which region to use.
+# This MUST live only in the root module.
+# ---------------------------------------------------------
+provider "aws" {
+   region = var.aws_region
+   profile = var.aws_profile
+}
 
 # The ACM certificate for CloudFront must be requested in us-east-1
 # regardless of the region used for other resources.

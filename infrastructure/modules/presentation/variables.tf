@@ -1,7 +1,11 @@
 # Input variables for the presentation module (S3, CloudFront, ACM).
 #
-# Placeholder scaffold — populate once requirements/architecture are final.
 
-# TODO: variable "bucket_name" { type = string }
+
+#
+variable "bucket_name" {
+    description = "The name of the S3 bucket for static website assets."
+    type        = string
+}
 # TODO: variable "domain_name" { type = string }
 # TODO: variable "tags" { type = map(string) }
