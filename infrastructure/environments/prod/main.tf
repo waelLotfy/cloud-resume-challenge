@@ -14,6 +14,7 @@ module "presentation" {
   # The root module provides the actual bucket name.
   # This value flows into the module's variable "bucket_name".
   bucket_name = var.bucket_name
+  tags = var.tags
 }
 
 # TODO: module "data" {
