@@ -3,7 +3,7 @@
 Three-tier serverless architecture (Presentation / Logic / Data), with GitHub 
 Actions handling CI/CD via OIDC-federated IAM roles.
 
-<img width="949" height="1113" alt="ArchitecturalDesign" src="https://github.com/user-attachments/assets/fd752620-c3a7-4102-899a-cd85e69d349d" />
+<img width="949" height="1113" alt="ArchitecturalDesign" src="architecture-diagram.png" />
 
 
 ## V-Model Position
@@ -19,9 +19,12 @@ requirements once those are written.
 When someone visits the site, Route 53 resolves the domain to CloudFront, 
 which serves the cached static files from S3 over HTTPS. The page's 
 JavaScript then calls API Gateway directly to update and read back the 
-visitor count — this is a separate call from the page load itself. 
-API Gateway triggers a Lambda function, which reads/writes the count in 
-DynamoDB and returns it back up the chain to the browser.
+visitor count — this is a separate call from the page load itself.
+API Gateway routes GET /visitorCount and POST /visitorCount/increment to 
+two separate Lambda functions — one read-only, one write-only — shown as 
+a single icon in the diagram for brevity. Each function reads/writes the 
+count in DynamoDB using its own scoped IAM role and returns it back up the 
+chain to the browser.
 
 Deployments work the same way in both directions: GitHub Actions pushes 
 frontend changes to S3 and invalidates the CloudFront cache, and pushes 
@@ -73,6 +76,20 @@ a database instance continuously whether it's being hit or not. RDS would
 be the right call if this project ever needed relational data (e.g. a blog 
 with posts and comments), but for a single counter it would just be 
 unnecessary overhead.
+
+### Two Lambda Functions with Per-Function IAM
+The read and write operations are implemented as separate Lambda functions:
+`GetVisitorCount` reads the visitor count, while `IncrementVisitorCount`
+updates it. Splitting these operations allows each function to scale, be
+monitored, and be tested independently.
+
+More importantly, separate functions allow genuinely separate IAM permissions.
+The execution role for `GetVisitorCount` is granted only
+`dynamodb:GetItem`, while the execution role for `IncrementVisitorCount` is
+granted only `dynamodb:UpdateItem`. Neither function can perform the other's
+operation, even though both target the same DynamoDB table. This avoids using
+one broad execution role for both read and write access and better follows the
+principle of least privilege.
 
 ### Lambda over EC2 / Fargate
 The backend logic here is a couple of lines that run for milliseconds on 
