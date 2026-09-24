@@ -23,4 +23,7 @@ variable "bucket_name" {
   type = string
 }
 # TODO: variable "domain_name" { type = string }
-# TODO: variable "tags" { type = map(string) }
+variable "tags" {
+  type    = map(string)
+  default = {}
+}

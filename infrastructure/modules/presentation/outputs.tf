@@ -21,6 +21,10 @@ output "bucket_id" {
 output "bucket_arn" {
   value = aws_s3_bucket.resume_site.arn
 }
-# TODO: output "cloudfront_distribution_id" { value = ... }
-# TODO: output "cloudfront_domain_name" { value = ... }
+output "cloudfront_distribution_id" {
+  value = aws_cloudfront_distribution.resume_cdn.id
+}
+output "cloudfront_domain_name" {
+  value = aws_cloudfront_distribution.resume_cdn.domain_name
+}
 # TODO: output "acm_certificate_arn" { value = ... }
