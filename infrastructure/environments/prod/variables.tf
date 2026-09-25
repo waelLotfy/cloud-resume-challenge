@@ -27,3 +27,8 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+
+variable "table_name" {
+  description = "Name of the DynamoDB table storing the visitor count."
+  type = string
+}

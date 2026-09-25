@@ -17,10 +17,13 @@ module "presentation" {
   tags = var.tags
 }
 
-# TODO: module "data" {
-#   source = "../../modules/data"
-#   # ...
-# }
+module "data" {
+  source = "../../modules/data"
+  # The root module provides the actual table name.
+  # This value flows into the module's variable "table_name".
+  table_name = var.table_name
+  tags = var.tags
+}
 
 # TODO: module "logic" {
 #   source = "../../modules/logic"
