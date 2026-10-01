@@ -11,6 +11,12 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+backend/**/*.zip
+
+# Terraform plan files
+tfplan
+*.tfplan
+
 
 # Python
 __pycache__/

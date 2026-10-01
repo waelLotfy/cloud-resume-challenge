@@ -3,18 +3,21 @@
 # No VPC is configured anywhere in this project — all AWS services are
 # accessed via public/managed endpoints with IAM auth, by design.
 #
-# NOTE: This is a placeholder scaffold. Provider/version constraints must
-# be completed once the Terraform/AWS provider versions are decided.
+terraform {
+   required_providers {
+      # Our existing aws provider entry stays exactly as it is
+      aws = {
+         source = "hashicorp/aws"  # Where Terraform downloads the AWS plugin from
+         version = "6.36.0"        # Exact pin, matching your original setup
+      }
 
-# TODO: terraform {
-#   required_version = ">= <TBD>"
-#   required_providers {
-#     aws = {
-#       source  = "hashicorp/aws"
-#       version = "~> <TBD>"
-#     }
-#   }
-# }
+      # NEW: the archive provider, needed by the archive_file data source
+      archive = {
+         source = "hashicorp/archive" # Where Terraform downloads the archive plugin from
+         version = "~> 2.4"            # Any 2.x version from 2.4 up, but never 3.0+
+      }
+   }
+}
 # ---------------------------------------------------------
 # AWS provider configuration
 # This tells Terraform which cloud and which region to use.
@@ -24,6 +27,7 @@ provider "aws" {
    region = var.aws_region
    profile = var.aws_profile
 }
+
 
 # The ACM certificate for CloudFront must be requested in us-east-1
 # regardless of the region used for other resources.

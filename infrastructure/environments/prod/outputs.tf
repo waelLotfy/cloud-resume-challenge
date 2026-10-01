@@ -1,6 +1,10 @@
 # Outputs for the "prod" environment root module.
 #
-# Placeholder scaffold — populate once requirements/architecture are final.
 
 # TODO: output "cloudfront_domain_name" { value = module.presentation.cloudfront_domain_name }
-# TODO: output "api_endpoint" { value = module.logic.api_endpoint }
+# Re-export the API Gateway's base URL from the logic module,
+# so it's visible via `terraform output` at the root level -
+# needed for Postman testing now, and for the frontend's main.js later.
+output "api_endpoint" {
+  value = module.logic.api_endpoint
+}

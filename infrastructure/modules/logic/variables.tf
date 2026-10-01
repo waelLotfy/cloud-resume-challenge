@@ -4,6 +4,17 @@
 
 # TODO: variable "function_name" { type = string }
 # TODO: variable "lambda_source_dir" { type = string }
-# TODO: variable "dynamodb_table_name" { type = string }  # passed in from the data module's output via the root module
-# TODO: variable "dynamodb_table_arn" { type = string }   # passed in from the data module's output via the root module
-# TODO: variable "tags" { type = map(string) }
+variable "table_name" {
+  description = "Name of the DynamoDB table, passed to both Lambdas as an environment variable."
+  type = string
+}  # passed in from the data module's output via the root module
+
+variable "table_arn" {
+  description = "ARN of the DynamoDB table, used to scope each Lambda's IAM permissions to this table only."
+  type = string
+}
+variable "tags" {
+  description = "Tags applied to the IAM roles and Lambda functions created by the logic module."
+  type = map(string)
+  default = {}
+}

@@ -25,9 +25,9 @@ module "data" {
   tags = var.tags
 }
 
-# TODO: module "logic" {
-#   source = "../../modules/logic"
-#   dynamodb_table_name = module.data.table_name
-#   dynamodb_table_arn  = module.data.table_arn
-#   # ...
-# }
+module "logic" {
+   source = "../../modules/logic" # The root module provides the actual table name and ARN.
+   table_name = module.data.table_name
+   table_arn  = module.data.table_arn
+   tags = var.tags
+}
