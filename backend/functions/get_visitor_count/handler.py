@@ -33,9 +33,14 @@ table = dynamoDB.Table(TABLE_NAME) # Get the DynamoDB table object
 # Access-Control-Allow-Origin: "*" allows any origin to call this API.
 # It could be restricted to your exact CloudFront domain later for
 # tighter security, but "*" is fine for a public read-only endpoint.
+# Cache-Control: no-store is included even on this READ endpoint,
+# not because a bug exists today, but because the underlying value
+# changes on every write - any future caching layer (browser,
+# proxy, CDN) added later must never serve a stale count here either.
 CORS_HEADERS = {
     "Access-Control-Allow-Origin": "*", # Allow any origin to call this API
     "Content-Type": "application/json", # Set the content type to JSON
+    "Cache-Control": "no-store", # Do not cache the response
 }
 
 def lambda_handler(event, context):

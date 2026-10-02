@@ -34,9 +34,15 @@ table = dynamodb.Table(TABLE_NAME)
 # Access-Control-Allow-Origin: "*" allows any origin to call this API.
 # You could restrict this to your exact CloudFront domain later for
 # tighter security, but "*" is fine for a public read-only endpoint.
+# Cache-Control: no-store tells any browser or intermediary cache
+# (including CloudFront, if ever placed in front of this route) to
+# NEVER cache this response - every increment must reach the real
+# Lambda, never a stale cached copy. This is the "Latency Whisperer"
+# mod's POST-caching safeguard, applied here instead of in CloudFront.
 CORS_HEADERS = {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
+    "Cache-Control": "no-store",
 }
 
 def lambda_handler(event, context):
