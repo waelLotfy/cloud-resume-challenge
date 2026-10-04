@@ -16,7 +16,7 @@ backend/**/*.zip
 # Terraform plan files
 tfplan
 *.tfplan
-
+tfbootstrapplan
 
 # Python
 __pycache__/
