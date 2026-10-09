@@ -26,8 +26,30 @@ module "data" {
 }
 
 module "logic" {
-   source = "../../modules/logic" # The root module provides the actual table name and ARN.
-   table_name = module.data.table_name
-   table_arn  = module.data.table_arn
-   tags = var.tags
+  source = "../../modules/logic" # The root module provides the actual table name and ARN.
+  table_name = module.data.table_name
+  table_arn  = module.data.table_arn
+  tags = var.tags
+}
+
+module "cicd" {
+  source = "../../modules/cicd"
+
+  github_repo   = var.github_repo
+  github_branch = "main"
+
+  state_bucket_arn = "arn:aws:s3:::wael-crc-terraform-state"
+  resume_bucket_arn = module.presentation.resume_bucket_arn
+  cloudfront_distribution_arn = module.presentation.cloudfront_distribution_arn
+  dynamodb_table_arn = module.data.table_arn
+  lambda_function_arns = [
+    module.logic.get_visitor_count_function_arn,
+    module.logic.increment_visitor_count_function_arn,
+  ]
+  lambda_execution_role_arns = [
+    module.logic.get_visitor_count_role_arn,
+    module.logic.increment_visitor_count_role_arn,
+  ]
+  api_gateway_execution_arn = module.logic.api_gateway_execution_arn
+  tags = var.tags
 }

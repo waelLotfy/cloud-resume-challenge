@@ -8,3 +8,11 @@
 output "api_endpoint" {
   value = module.logic.api_endpoint
 }
+
+output "github_actions_role_arn" {
+  value = module.cicd.github_actions_role_arn
+}
+
+output "github_actions_plan_role_arn" {
+  value = module.cicd.github_actions_plan_role_arn
+}
