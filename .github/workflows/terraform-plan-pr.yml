@@ -39,6 +39,7 @@ jobs:
           terraform_version: "1.16.2"
 
       - name: Authenticate to AWS via OIDC (plan-only role)
+        id: auth # id lets the report step below check THIS step's outcome
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
           # The PLAN role, not the Deploy role - read-only, trusted
@@ -50,7 +51,9 @@ jobs:
         # PR. Without this, an auth failure would show only as a red X
         # on the workflow with no comment at all.
       - name: Report authentication failure
-        if: failure()
+        # failure() is required so the step still runs after a failure;
+        # the second condition limits it to a failure of the auth step itself.
+        if: failure() && steps.auth.outcome == 'failure'
         uses: peter-evans/create-or-update-comment@v5.0.0
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -61,10 +64,11 @@ jobs:
                   ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Terraform Init
+        id: init
         run: terraform init
 
       - name: Report init failure
-        if: failure()
+        if: failure() && steps.init.outcome == 'failure'
         uses: peter-evans/create-or-update-comment@v5.0.0
         with:
           issue-number: ${{ github.event.pull_request.number }}
