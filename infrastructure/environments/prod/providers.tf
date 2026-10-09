@@ -11,10 +11,15 @@ terraform {
          version = "6.36.0"        # Exact pin, matching your original setup
       }
 
-      # NEW: the archive provider, needed by the archive_file data source
+      # The archive provider, needed by the archive_file data source
       archive = {
          source = "hashicorp/archive" # Where Terraform downloads the archive plugin from
          version = "~> 2.4"            # Any 2.x version from 2.4 up, but never 3.0+
+      }
+
+      tls = {
+         source = "hashicorp/tls"     # Where Terraform downloads the TLS plugin from
+         version = "~> 4.0"            # Any 4.x version, but never 5.0+
       }
    }
 }
