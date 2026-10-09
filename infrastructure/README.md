@@ -41,3 +41,44 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+## Local development: initializing the Terraform backend
+
+Terraform state for `environments/prod` is stored remotely in S3. The backend
+configuration in `environments/prod/backend.tf` intentionally omits the AWS
+profile, because the correct value differs by environment:
+
+- **Local development** authenticates with a named AWS CLI profile (AWS SSO).
+- **CI (GitHub Actions)** authenticates through OIDC and receives temporary
+  credentials from the environment. No profile exists on the runner.
+
+The profile is therefore supplied at initialization time rather than stored
+in code.
+
+### Initialize locally
+
+1. Authenticate with AWS SSO:
+
+```powershell
+   aws sso login --profile <your-aws-sso-profile>
+```
+
+2. Initialize Terraform from `infrastructure/environments/prod`:
+
+```powershell
+   terraform init -backend-config="profile=<your-aws-sso-profile>"
+```
+
+If backend settings have changed since the last initialization (for example,
+a different profile or bucket), re-run with `-reconfigure`:
+
+```powershell
+terraform init -reconfigure -backend-config="profile=<your-aws-sso-profile>"
+```
+
+### Troubleshooting
+
+| Error | Cause | Resolution |
+|---|---|---|
+| `InvalidClientTokenId` / `403` from STS | SSO session expired | Re-run `aws sso login` |
+| `No valid credential sources found` | Profile not supplied at init | Re-run `terraform init` with `-backend-config="profile=..."` |
