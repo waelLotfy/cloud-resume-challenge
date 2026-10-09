@@ -27,7 +27,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: infrastructure/environment/prod
+        working-directory: infrastructure/environments/prod
 
     steps:
       - name: Check out the repository
