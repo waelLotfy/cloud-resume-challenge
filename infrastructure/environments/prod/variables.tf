@@ -32,3 +32,8 @@ variable "table_name" {
   description = "Name of the DynamoDB table storing the visitor count."
   type = string
 }
+
+variable "github_repo" {
+  description = "GitHub repo in owner/name form, used to scope the OIDC trust policy."
+  type        = string
+}

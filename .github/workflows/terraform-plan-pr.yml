@@ -1,0 +1,101 @@
+# ============================================================
+# Runs `terraform plan` on every pull request that touches
+# infrastructure/, and posts the result as a PR comment.
+#
+# SECURITY: this workflow assumes the PLAN-ONLY role, never the
+# deploy role. PR code is untrusted - the plan role is strictly
+# read-only (AWS managed ReadOnlyAccess + a narrow lock-file
+# write), so even a maliciously crafted PR cannot use this
+# workflow to modify any real AWS resource.
+# ============================================================
+
+name: Terraform Plan (PR)
+
+on:
+  pull_request:
+    paths:
+      - "infrastructure/**"
+
+permissions:
+  id-token: write # Required to request the OIDC token from GitHub
+  contents: read  # Required for actions/checkout
+  pull-requests: write # Required to post the plan as a PR comment
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: infrastructure/environment/prod
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: "1.16.2"
+
+      - name: Authenticate to AWS via OIDC (plan-only role)
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          # The PLAN role, not the Deploy role - read-only, trusted
+          # only for pull_request-triggered tokens.
+          role-to-assume: arn:aws:iam::130165494991:role/github-actions-cloud-resume-plan
+          aws-region: eu-central-1
+
+        # If authentication itself fails, this step reports it on the
+        # PR. Without this, an auth failure would show only as a red X
+        # on the workflow with no comment at all.
+      - name: Report authentication failure
+        if: failure()
+        uses: peter-evans/create-or-update-comment@v5.0.0
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            #### Terraform Plan - Authentication Failed
+                  AWS authentication failed before `terraform plan` could run.
+                  See the workflow run for details:
+                  ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Report init failure
+        if: failure()
+        uses: peter-evans/create-or-update-comment@v5.0.0
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            #### Terraform Plan - Init Failed
+                        `terraform init` failed before planning could run.
+                        See the workflow run for details:
+                        ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+        # continue-on-error lets us still reach the comment step below
+        # even if the plan itself fails - we WANT that failure reported
+        # on the PR with real diagnostic detail, not just a red X.
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -out=tfplan
+        continue-on-error: true
+
+      # Posts stdout, stderr, AND the exit code - Terraform errors
+      # are frequently written to stderr, which a stdout-only
+      # comment would miss entirely.
+      #
+      # A dedicated comment action (not inline github-script)
+      # means the raw plan text is passed as a plain string
+      # parameter, never interpolated into executable JavaScript -
+      # this closes the injection risk a template-literal approach
+      # would otherwise have against untrusted PR-controlled output.
+      - name: Post plan result as PR comment
+        uses: peter-evans/create-or-update-comment@v5.0.0
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            #### Terraform Plan Result (exit code: ${{ steps.plan.outputs.exitcode }})
+
+            **stdout:**
