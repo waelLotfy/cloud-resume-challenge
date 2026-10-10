@@ -9,6 +9,12 @@ variable "github_repo" {
   type        = string
 }
 
+variable "github_repo_immutable" {
+  description = "Immutable-ID form of the repository (owner@ownerId/name@repoId) used in OIDC subject claims when the repo's sub claim uses immutable IDs"
+  type        = string
+  default     = "waelLotfy@74569844/cloud-resume-challenge-private@1353849887"
+}
+
 variable "github_branch" {
   description = "The GitHub branch allowed to assume this role"
   type        = string
