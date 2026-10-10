@@ -4,10 +4,16 @@ variable "tags" {
   default     = {}
 }
 
-variable "github_repo" {
-  description = "The GitHub repository in the format owner/name form, e.g., waelLotfy/cloud-resume-challenge-private"
+#variable "github_repo" {
+  #description = "The GitHub repository in the format owner/name form, e.g., waelLotfy/cloud-resume-challenge-private"
+  #type        = string
+#}
+
+variable "github_repo_immutable" {
+  description = "Immutable-ID form of the repository (owner@ownerId/name@repoId) used in OIDC subject claims when the repo's sub claim uses immutable IDs"
   type        = string
 }
+
 
 variable "github_branch" {
   description = "The GitHub branch allowed to assume this role"

@@ -14,7 +14,7 @@ module "presentation" {
   # The root module provides the actual bucket name.
   # This value flows into the module's variable "bucket_name".
   bucket_name = var.bucket_name
-  tags = var.tags
+  tags        = var.tags
 }
 
 module "data" {
@@ -22,26 +22,26 @@ module "data" {
   # The root module provides the actual table name.
   # This value flows into the module's variable "table_name".
   table_name = var.table_name
-  tags = var.tags
+  tags       = var.tags
 }
 
 module "logic" {
-  source = "../../modules/logic" # The root module provides the actual table name and ARN.
+  source     = "../../modules/logic" # The root module provides the actual table name and ARN.
   table_name = module.data.table_name
   table_arn  = module.data.table_arn
-  tags = var.tags
+  tags       = var.tags
 }
 
 module "cicd" {
   source = "../../modules/cicd"
 
-  github_repo   = var.github_repo
-  github_branch = "main"
+  github_repo_immutable = var.github_repo_immutable
+  github_branch         = "main"
 
-  state_bucket_arn = "arn:aws:s3:::wael-crc-terraform-state"
-  resume_bucket_arn = module.presentation.resume_bucket_arn
+  state_bucket_arn            = "arn:aws:s3:::wael-crc-terraform-state"
+  resume_bucket_arn           = module.presentation.resume_bucket_arn
   cloudfront_distribution_arn = module.presentation.cloudfront_distribution_arn
-  dynamodb_table_arn = module.data.table_arn
+  dynamodb_table_arn          = module.data.table_arn
   lambda_function_arns = [
     module.logic.get_visitor_count_function_arn,
     module.logic.increment_visitor_count_function_arn,
@@ -51,5 +51,5 @@ module "cicd" {
     module.logic.increment_visitor_count_role_arn,
   ]
   api_gateway_execution_arn = module.logic.api_gateway_execution_arn
-  tags = var.tags
+  tags                      = var.tags
 }
