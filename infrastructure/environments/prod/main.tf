@@ -14,7 +14,7 @@ module "presentation" {
   # The root module provides the actual bucket name.
   # This value flows into the module's variable "bucket_name".
   bucket_name = var.bucket_name
-  tags        = var.tags
+  tags = var.tags
 }
 
 module "data" {
@@ -22,14 +22,14 @@ module "data" {
   # The root module provides the actual table name.
   # This value flows into the module's variable "table_name".
   table_name = var.table_name
-  tags       = var.tags
+  tags = var.tags
 }
 
 module "logic" {
-  source     = "../../modules/logic" # The root module provides the actual table name and ARN.
+  source = "../../modules/logic" # The root module provides the actual table name and ARN.
   table_name = module.data.table_name
   table_arn  = module.data.table_arn
-  tags       = var.tags
+  tags = var.tags
 }
 
 module "cicd" {
