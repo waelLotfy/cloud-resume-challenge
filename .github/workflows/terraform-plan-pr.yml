@@ -21,6 +21,9 @@ permissions:
   contents: read  # Required for actions/checkout
   pull-requests: write # Required to post the plan as a PR comment
 
+env:
+  TF_INPUT: "0"   # never prompt; a missing variable fails fast with a clear error instead of hanging
+
 jobs:
   plan:
     runs-on: ubuntu-latest

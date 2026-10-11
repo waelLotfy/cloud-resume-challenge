@@ -12,6 +12,7 @@ variable "aws_region" {
 variable "aws_profile" {
   description = "AWS CLI profile name for SSO authentication"
   type        = string
+  default     = null
 }
 
 # ---------------------------------------------------------
@@ -25,7 +26,6 @@ variable "bucket_name" {
 # TODO: variable "domain_name" { type = string }
 variable "tags" {
   type    = map(string)
-  default = {}
 }
 
 variable "table_name" {
