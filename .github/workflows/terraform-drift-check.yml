@@ -1,0 +1,87 @@
+# ============================================================
+# Daily drift check: runs `terraform plan` against the real
+# infrastructure on a schedule, independent of any pull request.
+# A non-empty plan when nothing was intentionally changed means
+# something was altered outside Terraform (console edit, CLI change).
+# Read-only: assumes the PLAN-ONLY role and NEVER applies anything.
+# ============================================================
+
+name: Terraform Drift Check
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # Daily at 06:00 UTC (GitHub may start it late under load)
+  workflow_dispatch:    # Adds a "Run workflow" button for manual runs and testing
+
+permissions:
+  id-token: write # Required to request the OIDC token from GitHub
+  contents: read  # Required for actions/checkout
+
+env:
+  TF_INPUT: "0"   # never prompt; a missing variable fails fast with a clear error instead of hanging
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: infrastructure/environments/prod
+
+    steps:
+      # Use the same action versions as terraform-plan-pr.yml.
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: "1.16.2"
+          terraform_wrapper: false    # Use the plain binary so we read the real exit code ourselves
+
+      - name: Authenticate to AWS via OIDC (plan-only role)
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: arn:aws:iam::130165494991:role/github-actions-cloud-resume-plan
+          aws-region: eu-central-1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan (detect drift)
+        id: plan
+        run: |
+          # -detailed-exitcode: 0 = no changes, 1 = error, 2 = changes (drift).
+          # -lock-timeout: wait if a deploy is mid-apply instead of failing instantly.
+          # Steps run with "bash -e", so capture the exit code instead of letting
+          # exit code 2 abort the step before we can read it.
+          code=0
+          terraform plan -no-color -detailed-exitcode -lock-timeout=5m > plan.txt 2>&1 || code=$?
+          echo "exitcode=$code" >> "$GITHUB_OUTPUT"
+          
+        # The plan text is read from a file and appended to the summary page,
+        # never interpolated into a script, so its contents can't execute.
+      - name: Publish plan to the run summary
+        run: |
+          {
+            echo "## Terraform drift check (exit code: ${{ steps.plan.outputs.exitcode }})"
+            echo '```'
+            head -c 60000 plan.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Evaluate result
+        run: |
+          case "${{ steps.plan.outputs.exitcode }}" in
+            "0")
+              echo "No drift: infrastructure matches the configuration." 
+              ;;
+            "2")
+              echo "::error::Drift detected - real infrastructure differs from the Terraform configuration. See the run summary for the diff."
+              exit 1
+              ;;
+            *)
+              echo "::error::terraform plan failed. See the run summary for details.
+              exit 1
+              ;;
+          esac
