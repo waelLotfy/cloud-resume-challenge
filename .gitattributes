@@ -1,0 +1,4 @@
+# Same bytes on Windows and Linux; Terraform hashes the zipped Lambda code.
+*.py  text eol=lf
+*.tf  text eol=lf
+*.yml text eol=lf

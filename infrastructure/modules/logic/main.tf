@@ -34,12 +34,24 @@ data "archive_file" "get_visitor_count_zip" {
   type        = "zip"                                                               # The archive_file data source can create a zip or tar file from a directory of files, so this is format lambda expects.
   source_dir  = "${path.module}/../../../backend/functions/get_visitor_count"     # The directory containing the Lambda function's code handler.py. This is relative to the module's main.tf file.
   output_path = "${path.module}/../../../backend/functions/get_visitor_count.zip" # The path where the zip file will be written. This is relative to the module's main.tf file.
+
+  # Pin file modes so Windows and Linux produce the same zip (and the same hash).
+  output_file_mode = "0666"
+
+  # Keep local-only build artifacts out of the package.
+  excludes = ["**/__pycache__/**", "**/*.pyc"]
 }
 
 data "archive_file" "increment_visitor_count_zip" {
   type        = "zip"                                                                     # The archive_file data source can create a zip or tar file from a directory of files, so this is format lambda expects.
   source_dir  = "${path.module}/../../../backend/functions/increment_visitor_count"     # The directory containing the Lambda function's code handler.py. This is relative to the module's main.tf file.
   output_path = "${path.module}/../../../backend/functions/increment_visitor_count.zip" # The path where the zip file will be written. This is relative to the module's main.tf file.
+
+  # Pin file modes so Windows and Linux produce the same zip (and the same hash).
+  output_file_mode = "0666"
+
+  # Keep local-only build artifacts out of the package.
+  excludes = ["**/__pycache__/**", "**/*.pyc"]
 }
 
 # ============================================================
