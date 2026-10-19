@@ -81,7 +81,7 @@ jobs:
               exit 1
               ;;
             *)
-              echo "::error::terraform plan failed. See the run summary for details.
+              echo "::error::terraform plan failed. See the run summary for details."
               exit 1
               ;;
           esac
