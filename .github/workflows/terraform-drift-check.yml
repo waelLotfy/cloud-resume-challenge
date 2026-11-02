@@ -71,17 +71,22 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Evaluate result
+        env:
+          # The plan step's exit code, passed as an environment variable
+          # rather than substituted into the script text.
+          PLAN_EXIT_CODE: ${{ steps.plan.outputs.exitcode }}
         run: |
-          case "${{ steps.plan.outputs.exitcode }}" in
-            "0")
+          # 0 = no drift, 2 = drift, anything else = the plan itself failed.
+          case "$PLAN_EXIT_CODE" in
+            0)
               echo "No drift: infrastructure matches the configuration." 
               ;;
-            "2")
+            2)
               echo "::error::Drift detected - real infrastructure differs from the Terraform configuration. See the run summary for the diff."
               exit 1
               ;;
             *)
-              echo "::error::terraform plan failed. See the run summary for details.
+              echo "::error::terraform plan failed (exit code $PLAN_EXIT_CODE). See the run summary for details."
               exit 1
               ;;
           esac
