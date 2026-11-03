@@ -90,8 +90,8 @@ Use the following template for each non-functional requirement:
 ### NFR6: Gated CI/CD auto-deploy
 
 - **Category:** Maintainability
-- **Description:** Frontend and backend shall each auto-deploy on push to their respective GitHub repos, gated by passing tests.
-- **Rationale:** Ensures only validated code reaches production while keeping deployments automated.
+- **Description:** Frontend and backend shall each deploy automatically on a push to the main branch that changes their respective paths. Backend deployments shall require review of the planned changes and manual approval, and both deployments shall be verified by automated checks immediately afterwards.
+- **Rationale:** Keeps deployments automated while ensuring that production changes are reviewed and that a failed deployment is detected immediately.
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** [AC-FR21-1](./acceptance-criteria.md#ac-fr21-1-backend-cicd-pipeline-succeeds), [AC-FR23-1](./acceptance-criteria.md#ac-fr23-1-frontend-cicd-pipeline-succeeds)
 - **Tracked by:** [#38](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/38)

@@ -225,10 +225,10 @@ Use the following template for each functional requirement:
 - **Tracked by:** [#24](https://github.com/waelLotfy/cloud-resume-challenge-private/issues/24)
 - **Verification Method:** Demonstration
 
-### FR20: Backend GitHub repository
+### FR20: Backend source control
 
-- **Description:** A GitHub repository shall be created for the backend code.
-- **Rationale:** Separates backend and frontend concerns, enabling independent versioning and pipelines.
+- **Description:** The backend code shall be version-controlled in a GitHub repository.
+- **Rationale:** Enables change tracking and automated pipelines. Backend and frontend pipelines stay independent through path-filtered workflows within a single repository.
 - **Tier/Component:** Cross-cutting
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** Self-evident — no dedicated AC
@@ -237,8 +237,8 @@ Use the following template for each functional requirement:
 
 ### FR21: CI/CD for backend code
 
-- **Description:** GitHub Actions shall be set up for code implementation, tests, and deployment of the backend code.
-- **Rationale:** Ensures the backend is automatically tested and deployed on changes.
+- **Description:** GitHub Actions shall be set up to deploy the backend code and to verify the deployment with automated tests.
+- **Rationale:** Ensures backend changes are deployed automatically and checked immediately afterwards.
 - **Tier/Component:** Cross-cutting
 - **Related Architecture:** [Cross-Cutting Concerns](../architecture/architecture-overview.md#cross-cutting-concerns)
 - **Acceptance Criteria:** [AC-FR21-1](./acceptance-criteria.md#ac-fr21-1-backend-cicd-pipeline-succeeds)

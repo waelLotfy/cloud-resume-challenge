@@ -26,10 +26,11 @@ a single icon in the diagram for brevity. Each function reads/writes the
 count in DynamoDB using its own scoped IAM role and returns it back up the 
 chain to the browser.
 
-Deployments work the same way in both directions: GitHub Actions pushes 
-frontend changes to S3 and invalidates the CloudFront cache, and pushes 
-backend changes straight to the Lambda function, all using a short-lived 
-IAM role instead of stored AWS credentials.
+Deployments are automated with GitHub Actions.
+Frontend changes are synced to S3 and the CloudFront cache is invalidated.
+Backend changes, including the Lambda code, are deployed by applying the Terraform configuration after
+a manual approval, so Terraform remains the single source of truth for what runs in AWS.
+Both pipelines authenticate with short-lived IAM roles instead of stored AWS credentials.
 </br>
 
 ## Security

@@ -73,7 +73,7 @@ Only requirements with non-trivial or ambiguous verification get an entry here. 
 
 ### AC-FR21-1: Backend CI/CD pipeline succeeds
 - **Requirement:** FR21
-- **Criterion:** A push to the backend repository's main branch results in a GitHub Actions run where the pytest job and Terraform apply step both complete successfully
+- **Criterion:** A push to the main branch that changes the deployed infrastructure or the Lambda code results in a GitHub Actions run in which the plan job, the apply job (after manual approval), and the smoke-test job all complete successfully. A push that produces no planned changes ends after the plan job, with the apply and smoke-test jobs skipped.
 - **Verification:** Pipeline/CI validation
 - **Test Reference:** CI workflow run status (`.github/workflows/backend-deploy.yml`)
 
@@ -101,6 +101,18 @@ Only requirements with non-trivial or ambiguous verification get an entry here. 
 - **Verification:** Manual inspection
 - **Test Reference:** _(TBD)_
 
+### AC-NFR6-1: Backend deploy is approved and verified
+- **Requirement:** NFR6
+- **Criterion:** A backend deployment run pauses at the production environment's approval step before applying, shows the planned changes in the run summary, and ends with a successful post-deployment smoke-test job.
+- **Verification:** Pipeline/CI validation
+- **Test Reference:** CI workflow run status (`.github/workflows/backend-deploy.yml`)
+
+### AC-NFR6-2: Frontend deploys automatically and is verified
+- **Requirement:** NFR6
+- **Criterion:** A push to the main branch that changes files under `frontend/` results in a workflow run that syncs the site to S3, invalidates the CloudFront cache, and passes a post-deployment check that the live site returns HTTP 200 with the expected page content.
+- **Verification:** Pipeline/CI validation
+- **Test Reference:** CI workflow run status (frontend deploy workflow, planned; add the file name when it exists)
+
 ---
 
 ## Acceptance Criteria Register
@@ -121,6 +133,7 @@ Only requirements with non-trivial or ambiguous verification get an entry here. 
 | AC-FR24-1 | FR24 | Cache invalidation call succeeds | Pipeline/CI validation | `.github/workflows/frontend-deploy.yml` |
 | AC-FR25-1 | FR25 | Lambda invocation logged to CloudWatch | Integration test | `tests/integration/test_cloudwatch_logging.py` |
 | AC-NFR2-1 | NFR2 | $0/near-$0 cost after 1 week | Manual inspection | _(TBD)_ |
-
+| AC-NFR6-1 | NFR6 | Backend deployment is approved and verified | Pipeline/CI validation | `.github/workflows/backend-deploy.yml` |
+| AC-NFR6-2 | NFR6 | Frontend deployment is automatic and verified | Pipeline/CI validation | `.github/workflows/frontend-deploy.yml` |
 ---
 _Acceptance criteria are written selectively — not every requirement needs one. This table is populated as ambiguous or non-trivial requirements are identified._

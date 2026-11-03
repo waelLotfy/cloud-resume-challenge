@@ -167,7 +167,7 @@
         <mxCell id="1Zo4yU8_iLZKHQSV3PcD-79" edge="1" parent="1" source="1Zo4yU8_iLZKHQSV3PcD-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="1Zo4yU8_iLZKHQSV3PcD-8">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="1Zo4yU8_iLZKHQSV3PcD-80" connectable="0" parent="1Zo4yU8_iLZKHQSV3PcD-79" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="AWS CLI - Update function code" vertex="1">
+        <mxCell id="1Zo4yU8_iLZKHQSV3PcD-80" connectable="0" parent="1Zo4yU8_iLZKHQSV3PcD-79" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Terraform apply (code package)" vertex="1">
           <mxGeometry relative="1" x="-0.8434" y="3" as="geometry">
             <mxPoint x="55" y="14" as="offset" />
           </mxGeometry>
