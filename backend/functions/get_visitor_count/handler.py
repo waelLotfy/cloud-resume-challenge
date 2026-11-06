@@ -42,7 +42,7 @@ CORS_HEADERS = {
     "Content-Type": "application/json", # Set the content type to JSON
     "Cache-Control": "no-store", # Do not cache the response
 }
-# Test deployment workflow
+
 def lambda_handler(event, context):
     try:
         # GetItem fetches exactly one item by its key.
