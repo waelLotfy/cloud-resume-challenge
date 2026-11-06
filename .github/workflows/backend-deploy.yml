@@ -90,6 +90,14 @@ jobs:
             *) echo "::error::terraform plan failed. See the run summary."; exit 1 ;;
           esac
 
+      - name: Verify Lambda packages were built
+        if : steps.plan.outputs.has_changes == 'true'
+        run: |
+          # List the zips Terraform built during planning; fail if there are none.
+          zips=$(find ../../../backend -name '*.zip')
+          echo "$zips"
+          test -n "$zips"
+
       # The apply job runs on a different machine, so the saved plan AND the
       # Lambda zips (built during planning, and gitignored) must travel with it.
       - name: Upload the plan and Lambda packages
@@ -99,7 +107,7 @@ jobs:
           name: tfplan
           path: |
             infrastructure/environments/prod/tfplan
-            backend/*.zip
+            backend/**/*.zip
           if-no-files-found: error
           retention-days: 1
 
@@ -142,6 +150,14 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::130165494991:role/github-actions-cloud-resume-deploy
           aws-region: eu-central-1
+
+      - name: Verify the downloaded plan and packages
+        run: |
+          # The plan and the Lambda zips must be back in their original locations.
+          test -f tfplan
+          zips=$(find ../../../backend -name '*.zip')
+          echo "$zips"
+          test -n "$zips"
 
       - name: Terraform init
         run: terraform init
