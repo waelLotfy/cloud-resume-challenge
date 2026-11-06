@@ -60,5 +60,10 @@ variable "state_lock_key" {
   description = "Object key of the Terraform state lock file, used to scope the plan role's write access to exactly that one object."
   type        = string
   default     = "prod/terraform.tfstate.tflock"
+}
 
+variable "github_environment" {
+    description = "GitHub Environment whose jobs may assume the deploy role. Jobs that declare it receive an environment-based OIDC subject."
+    type        = string
+    default     = "prod"
 }

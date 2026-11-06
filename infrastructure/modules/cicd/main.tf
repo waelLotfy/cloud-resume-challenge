@@ -60,7 +60,10 @@ data "aws_iam_policy_document" "github_actions_trust" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repo_immutable}:ref:refs/heads/${var.github_branch}"]
+      # Only jobs that declare `environment: prod` can assume this write-capable role.
+      # The environment's required reviewer therefore gates AWS access itself,
+      # not just the workflow file.
+      values   = ["repo:${var.github_repo_immutable}:environment:${var.github_environment}"]
     }
   }
 }
