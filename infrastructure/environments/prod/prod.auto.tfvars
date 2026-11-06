@@ -16,4 +16,4 @@ tags = {
 
 table_name = "wael-cloud-resume-visitor-count"
 
-github_repo_immutable = "waelLotfy@74569844/cloud-resume-challenge-private@1353849887"
+github_repo_immutable = "waelLotfy@74569844/cloud-resume-challenge@1353849887"
