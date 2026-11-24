@@ -16,3 +16,9 @@ output "github_actions_role_arn" {
 output "github_actions_plan_role_arn" {
   value = module.cicd.github_actions_plan_role_arn
 }
+
+# environments/prod/outputs.tf
+output "github_actions_frontend_role_arn" {
+  # Passed through from modules/cicd so it shows up in `terraform output`.
+  value = module.cicd.github_actions_frontend_role_arn
+}
