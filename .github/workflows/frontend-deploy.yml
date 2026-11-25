@@ -1,0 +1,87 @@
+# ============================================================
+# Frontend deploy: publishes the static site to S3, clears the
+# CloudFront cache, then verifies the live site responds correctly.
+# Runs automatically on pushes to main that change the site files.
+# Uses a narrow role that can only publish site files and manage
+# cache invalidations - it cannot change any infrastructure.
+# ============================================================
+
+name: Frontend Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/src/**"
+      - ".github/workflows/frontend-deploy.yml"
+  workflow_dispatch:   # Adds a manual "Run workflow" button for re-deploys
+
+permissions:
+  id-token: write   # Request the OIDC token
+  contents: read    # Required for actions/checkout
+
+# One frontend deploy at a time; a newer push waits for the current one.
+concurrency:
+  group: frontend-deploy
+  cancel-in-progress: false
+
+env:
+  BUCKET: wael-cloud-resume-2026
+  DISTRIBUTION_ID: E36UMKC34B0YXC
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Authenticate to AWS via OIDC (frontend role)
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: arn:aws:iam::130165494991:role/github-actions-cloud-resume-frontend
+          aws-region: eu-central-1
+
+      - name: Sanity check the site folder
+        run: |
+          # sync --delete removes anything in the bucket that is not in the source folder.
+          # If the folder were missing or empty, that would wipe the site, so stop here.
+          test -f frontend/src/index.html
+
+      - name: Sync the site to S3
+        run: |
+          # --delete removes bucket files that no longer exist in the repo.
+          # *.gitkeep is excluded so placeholder files are not published.
+          aws s3 sync frontend/src/ "s3://$BUCKET/" --delete --exclude "*.gitkeep"
+
+      - name: Invalidate the CloudFront cache
+        id: invalidate
+        run: |
+          # "/*" clears every cached path and counts as a single invalidation path.
+          id=$(aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*" --query Invalidation.Id --output text)
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for the invalidation to finish
+        env:
+          INVALIDATION_ID: ${{ steps.invalidate.outputs.id }}
+        run: |
+          # Checking before the cache is cleared could fetch the old page and pass for the wrong reason.
+          aws cloudfront wait invalidation-completed --distribution-id "$DISTRIBUTION_ID" --id "$INVALIDATION_ID"
+
+      - name: Verify the live site
+        run: |
+          # Look up the address from AWS instead of hardcoding it.
+          # When the custom domain is added later, switch this check to that domain.
+          domain=$(aws cloudfront get-distribution --id "$DISTRIBUTION_ID" --query Distribution.DomainName --output text)
+          base="https://$domain"
+
+          # The main page must return 200 and contain the visitor counter element.
+          curl --fail --silent --show-error --location --max-time 30 "$base/" --output page.html
+          grep -q 'id="visitor-count"' page.html
+
+          # The stylesheet and script must also be reachable (catches broken relative paths).
+          for path in /css/styles.css /js/main.js; do
+            curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$base$path"
+          done
+
+          echo "Live site verified at $base"

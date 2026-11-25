@@ -276,4 +276,76 @@ resource "aws_iam_role_policy" "github_actions_plan_lock_access" {
   policy = data.aws_iam_policy_document.github_actions_plan_lock_access.json
 }
 
-# Temporary workflow test version 4
+# ============================================================
+# Frontend deploy role: assumed by the frontend deploy workflow on pushes
+# to main. Deliberately NOT the Terraform deploy role: it can only publish
+# site files and manage cache invalidations. It cannot change any
+# infrastructure.
+# ============================================================
+
+data "aws_iam_policy_document" "github_actions_frontend_trust" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type        = "Federated"
+      identifiers = [aws_iam_openid_connect_provider.github.arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+
+    # Pushes to the configured branch only, pinned to the immutable repo identity.
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:${var.github_repo_immutable}:ref:refs/heads/${var.github_branch}"]
+    }
+  }
+}
+
+resource "aws_iam_role" "github_actions_frontend" {
+  name               = "github-actions-cloud-resume-frontend"
+  assume_role_policy = data.aws_iam_policy_document.github_actions_frontend_trust.json
+  tags               = var.tags
+}
+
+data "aws_iam_policy_document" "github_actions_frontend_permissions" {
+  # aws s3 sync lists the bucket to decide what to upload or delete.
+  statement {
+    sid       = "ListResumeBucket"
+    effect    = "Allow"
+    actions   = ["s3:ListBucket"]
+    resources = [var.resume_bucket_arn]
+  }
+
+  # Upload changed files and delete removed ones - objects only, no bucket-level settings.
+  statement {
+    sid       = "PublishSiteFiles"
+    effect    = "Allow"
+    actions   = ["s3:PutObject", "s3:DeleteObject"]
+    resources = ["${var.resume_bucket_arn}/*"]
+  }
+
+  # Clear the cache, wait for it to finish, and look up the site address.
+  statement {
+    sid    = "InvalidateCache"
+    effect = "Allow"
+    actions = [
+      "cloudfront:CreateInvalidation",
+      "cloudfront:GetInvalidation",
+      "cloudfront:GetDistribution",
+    ]
+    resources = [var.cloudfront_distribution_arn]
+  }
+}
+
+resource "aws_iam_role_policy" "github_actions_frontend_permissions" {
+  name   = "github-actions-frontend-permissions"
+  role   = aws_iam_role.github_actions_frontend.id
+  policy = data.aws_iam_policy_document.github_actions_frontend_permissions.json
+}

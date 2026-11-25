@@ -13,3 +13,9 @@ output "github_actions_plan_role_arn" {
   # deploy workflow. Read-only; cannot modify any AWS resource.
   value = aws_iam_role.github_actions_plan.arn
 }
+
+output "github_actions_frontend_role_arn" {
+  # Assumed by the frontend deploy workflow. Can publish site files and
+  # manage cache invalidations only.
+  value = aws_iam_role.github_actions_frontend.arn
+}
