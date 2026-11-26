@@ -51,10 +51,10 @@ variable "lambda_execution_role_arns" {
   type        = list(string)
 }
 
-variable "api_gateway_execution_arn" {
-  description = "The ARN of the API Gateway execution role used for visitor count"
-  type        = string
-}
+#variable "api_gateway_execution_arn" {
+  #description = "The ARN of the API Gateway execution role used for visitor count"
+  #type        = string
+#}
 
 variable "state_lock_key" {
   description = "Object key of the Terraform state lock file, used to scope the plan role's write access to exactly that one object."
@@ -66,4 +66,16 @@ variable "github_environment" {
     description = "GitHub Environment whose jobs may assume the deploy role. Jobs that declare it receive an environment-based OIDC subject."
     type        = string
     default     = "prod"
+}
+
+variable "cloudfront_oac_arn" {
+  type = string
+}
+
+variable "api_gateway_arn" {
+  type = string
+}
+
+variable "aws_region" {
+  type = string
 }

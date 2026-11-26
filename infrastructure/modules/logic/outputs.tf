@@ -65,3 +65,10 @@ output "get_visitor_count_function_arn" {
 output "increment_visitor_count_function_arn" {
   value = aws_lambda_function.increment_visitor_count.arn
 }
+
+output "api_gateway_arn" {
+  # The MANAGEMENT-style ARN (arn:aws:apigateway:<region>::/apis/<id>), not the
+  # execute-api ARN used for invoking. Consumed by modules/cicd to scope the
+  # Terraform deploy role's API Gateway permissions.
+  value = aws_apigatewayv2_api.visitor_count_api.arn
+}

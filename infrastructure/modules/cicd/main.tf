@@ -98,35 +98,21 @@ data "aws_iam_policy_document" "github_actions_permissions" {
     ]
   }
 
-  # The resume content bucket - read/write for both Terraform and
-  # the frontend deploy step's `aws s3 sync`.
+  # Resume bucket: the bucket's own settings (policy, public-access block, tags)
+  # plus its objects. Scoped to this one bucket. Replaces ResumeBucketAccess.
   statement {
-    sid     = "ResumeBucketAccess"
-    effect  = "Allow"
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:DeleteObject",
-      "s3:ListBucket"
-    ]
-    resources = [
-      var.resume_bucket_arn,
-      "${var.resume_bucket_arn}/*",
-    ]
+    sid       = "ResumeBucketAccess"
+    effect    = "Allow"
+    actions   = ["s3:*"]
+    resources = [var.resume_bucket_arn, "${var.resume_bucket_arn}/*"]
   }
 
-  # CloudFront - manage the distribution, and invalidate its cache
-  # after a frontend deploy.
+  # CloudFront: the distribution and its origin access control. Replaces CloudFrontAccess.
   statement {
-    sid     = "CloudFrontAccess"
-    effect  = "Allow"
-    actions = [
-      "cloudfront:GetDistribution",
-      "cloudfront:UpdateDistribution",
-      "cloudfront:CreateInvalidation",
-      "cloudfront:GetInvalidation",
-    ]
-    resources = [var.cloudfront_distribution_arn]
+    sid       = "CloudFrontAccess"
+    effect    = "Allow"
+    actions   = ["cloudfront:*"]
+    resources = [var.cloudfront_distribution_arn, var.cloudfront_oac_arn]
   }
 
   # DynamoDB table management.
@@ -147,33 +133,34 @@ data "aws_iam_policy_document" "github_actions_permissions" {
       resources = var.lambda_function_arns
   }
 
-  # API Gateway management, scoped to this project's one API.
+  # API Gateway: management actions use arn:aws:apigateway ARNs, not execute-api.
+  # The /tags/* entry covers tagging operations. Replaces APIGatewayAccess.
   statement {
-      sid     = "APIGatewayAccess"
-      effect  = "Allow"
-      actions = [
-      "apigateway:*" ]
-      resources = ["${var.api_gateway_execution_arn}/*"]
+    sid     = "APIGatewayAccess"
+    effect  = "Allow"
+    actions = ["apigateway:*"]
+    resources = [
+      var.api_gateway_arn,
+      "${var.api_gateway_arn}/*",
+      "arn:aws:apigateway:${var.aws_region}::/tags/*",
+    ]
   }
 
-  # IAM: Terraform needs to manage the Lambda execution roles
-  # THEMSELVES as resources (create/update/delete), scoped to only
-  # role names this project actually uses - not IAM in general.
-    statement {
-        sid     = "ManageLambdaExecutionRoles"
-        effect  = "Allow"
-        actions = [
-        "iam:CreateRole",
-        "iam:DeleteRole",
-        "iam:GetRole",
-        "iam:AttachRolePolicy",
-        "iam:DetachRolePolicy",
-        "iam:PutRolePolicy",
-        "iam:DeleteRolePolicy",
-        "iam:GetRolePolicy",
-        "iam:TagRole",]
-        resources = var.lambda_execution_role_arns
-    }
+  # IAM: manage the two Lambda execution roles only, including updates and listings
+  # Terraform performs. The CI roles themselves are deliberately excluded.
+  # Replaces ManageLambdaExecutionRoles.
+  statement {
+    sid    = "ManageLambdaExecutionRoles"
+    effect = "Allow"
+    actions = [
+      "iam:GetRole", "iam:CreateRole", "iam:DeleteRole", "iam:UpdateRole",
+      "iam:UpdateAssumeRolePolicy", "iam:TagRole", "iam:UntagRole",
+      "iam:PutRolePolicy", "iam:GetRolePolicy", "iam:DeleteRolePolicy",
+      "iam:ListRolePolicies", "iam:AttachRolePolicy", "iam:DetachRolePolicy",
+      "iam:ListAttachedRolePolicies", "iam:ListInstanceProfilesForRole",
+    ]
+    resources = var.lambda_execution_role_arns
+  }
 
     # PassRole: required specifically because creating/updating a
     # Lambda function with an execution role requires explicit

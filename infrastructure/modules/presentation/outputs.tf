@@ -56,3 +56,8 @@ output "resume_bucket_arn" {
 output "cloudfront_distribution_arn" {
   value = aws_cloudfront_distribution.resume_cdn.arn
 }
+
+output "cloudfront_oac_arn" {
+  # Consumed by modules/cicd: lets the Terraform deploy role manage this origin access control.
+  value = aws_cloudfront_origin_access_control.resume_oac.arn
+}

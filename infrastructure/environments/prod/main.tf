@@ -50,6 +50,9 @@ module "cicd" {
     module.logic.get_visitor_count_role_arn,
     module.logic.increment_visitor_count_role_arn,
   ]
-  api_gateway_execution_arn = module.logic.api_gateway_execution_arn
-  tags                      = var.tags
+  #api_gateway_execution_arn = module.logic.api_gateway_execution_arn
+  cloudfront_oac_arn = module.presentation.cloudfront_oac_arn
+  api_gateway_arn    = module.logic.api_gateway_arn          # replaces api_gateway_execution_arn
+  aws_region         = var.aws_region
+  tags               = var.tags
 }
